@@ -7,7 +7,7 @@ from app import server
 from homepage import Homepage
 from apps.revenue import revenue_App
 
-# import callbacks
+import callbacks
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
