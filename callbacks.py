@@ -7,6 +7,7 @@ from app import app
 from data import df_revenue, sources, df_rev
 from dotenv import load_dotenv
 import plotly.graph_objs as go
+from apps.revenue import month_values
 
 load_dotenv()
 
@@ -117,3 +118,49 @@ def create_rev_scat(clickData,year,rev):
                 font = {'size': 8}
             )
         }
+
+@app.callback(
+    Output('crat', 'children'),
+    Input('revenue-map', 'clickData'))
+def clean_crat(clickData):
+    county_revenue_df = df_rev.groupby(['county', 'year'])
+    crat = county_revenue_df.sum()
+    crat.reset_index(inplace=True)
+    
+    return crat.to_json()
+
+@app.callback(
+    Output('month-rev-bar', 'figure'),
+    [Input('revenue-map', 'clickData'),
+    Input('month', 'value'),
+    Input('crat', 'children'),
+    Input('month-year', 'value')])         
+def create_month_bar(clickData, month, crat, mo_yr):
+    crat = pd.read_json(crat)
+    crat.reset_index(inplace=True)
+    df = df_rev
+    filtered_county = clickData['points'][-1]['text']
+  
+    county_rev = df[df['county'] == filtered_county]
+
+    county_rev_month = county_rev.groupby(['month'], as_index=False)['tot_sales'].sum()
+
+    crm = county_rev[county_rev['month'] == month]
+    
+    if mo_yr == 'yr':
+        trace1 = [
+            {'y': county_rev_month['tot_sales'], 'x': county_rev_month['month'], 'type': 'bar', 'name': 'month'}
+        ]
+    elif mo_yr == 'mo':
+        trace1 = [
+            {'y': crm['tot_sales'], 'x': crm['year'], 'type': 'bar', 'name': 'month'}
+        ]
+    
+    return {
+        'data': trace1,
+        'layout': go.Layout(
+            height = 350,
+            title = '{} COUNTY REVENUE FOR {}'.format(clickData['points'][-1]['text'], month_values[month]),
+            font = {'size': 8}
+        ),
+    }
