@@ -42,9 +42,28 @@ def get_header():
 
     return header
 
+def get_navbar(p='revenue'):
+    navbar_revenue = html.Div([
+        html.Div([], className='col-3'),
+        html.Div([
+            dcc.Link(
+                html.H4(children='Revenue'),
+                href='/revenue'
+            )
+        ],
+            className='col-2'
+        ),
+    ])
+    if p == 'revenue':
+        return navbar_revenue
+    
+
 home_page_body = dbc.Container([
     html.Div([
         get_header(),
+    ]),
+    html.Div([
+        get_navbar(),
     ]),
     html.Div([
         html.Div([
