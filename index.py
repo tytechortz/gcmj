@@ -4,7 +4,7 @@ import dash
 
 from app import app
 from app import server
-from homepage import Homepage
+from homepage import home_page_App
 from apps.revenue import revenue_App
 
 import callbacks
@@ -17,14 +17,14 @@ app.layout = html.Div([
 @app.callback(dash.dependencies.Output('page-content', 'children'),
               [dash.dependencies.Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/revenue':
+    if pathname == '/apps/revenue':
          return revenue_App()
     # elif pathname == '/apps/page2':
     #      return page2
     # elif pathname == '/apps/page3':
     #      return page3
     else:
-        return Homepage()
+        return home_page_App()
 
 if __name__ == '__main__':
     app.run_server(debug=True)

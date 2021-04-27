@@ -24,6 +24,8 @@ def revenue_App():
 
         #Row 2 : Nav bar
         get_navbar('revenue'),
+
+
     ])
 
 # def revenue_App():
