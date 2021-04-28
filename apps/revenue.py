@@ -15,6 +15,15 @@ server = app.server
 
 month_values ={1:'JANUARY', 2:'FEBRUARY', 3:'MARCH', 4:'APRIL', 5:'MAY', 6:'JUNE', 7:'JULY', 8:'AUGUST', 9:'SEPTEMBER', 10:'OCTOBER', 11:'NOVEMBER', 12:'DECEMBER'}
 
+mapdiv_borderstyling = {
+    'border-radius' : '0px 0px 10px 10px',
+    'border-style' : 'solid',
+    'border-width' : '1px',
+    'border-color' : 'light-green',
+    'background-color' : 'light-green',
+    'box-shadow' : '2px 5px 5px 1px rgba(255, 101, 131, .5)'
+    }
+
 def revenue_App():
     return html.Div([
 
@@ -24,6 +33,38 @@ def revenue_App():
 
         #Row 2 : Nav bar
         get_navbar('revenue'),
+
+        #####################
+        #Row 3 : Map, Instructions
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.Div([
+                        html.Div([
+                            dcc.Graph('revenue-map')
+                        ],
+                            style = {'margin-top' : '10px',
+                                'margin-bottom' : '5px'}
+                        ),
+                    ],
+                        className='col-8'
+                    ),
+                    html.Div([
+                        dcc.Markdown('''Click on counties and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
+                        Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')
+                    ],
+                        className='col-4'
+                    ),
+                ],
+                    className='row'
+                ),
+            ],
+                className='col-12',
+                style=mapdiv_borderstyling
+            ),
+        ],
+            className='row'
+        ),
 
 
     ])

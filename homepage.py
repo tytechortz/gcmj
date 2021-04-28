@@ -106,7 +106,10 @@ def home_page_App():
         get_header(),
 
         get_navbar('homepage'),
-])
+
+        
+    ])
+
 
 app.layout = home_page_App
 
