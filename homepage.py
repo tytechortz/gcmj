@@ -285,7 +285,9 @@ def home_page_App():
             html.Div([
                 html.H4(children='Cannabis Data',
                         style={'color' : 'white', 'textAlign' : 'center'}),
-                html.Div(fig.show())
+                html.Div([
+                    dcc.Graph(figure=fig)
+                ])
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column
