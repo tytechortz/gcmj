@@ -164,3 +164,36 @@ def create_month_bar(clickData, month, crat, mo_yr):
             font = {'size': 8}
         ),
     }
+
+
+@app.callback(
+    Output('rev-bar', 'figure'),
+    [Input('revenue-map', 'clickData'),
+    Input('crat', 'children')])         
+def create_month_bar(clickData, crat):
+    # print(clickData)
+    # print(df_revenue.head())
+    crat = pd.read_json(crat)
+    crat.reset_index(inplace=True)
+    # print(crat)
+    filtered_county = crat['county'] ==  clickData['points'][-1]['text']
+    # # print(filtered_county)
+    selected_county = crat[filtered_county]
+    # selected_county.reset_index(inplace=True)
+    # print(selected_county)
+
+    trace1 = [
+        {'x': selected_county['year'], 'y': selected_county['med_sales'], 'type': 'bar', 'name': 'Med Sales' },
+        {'x': selected_county['year'], 'y': selected_county['rec_sales'], 'type': 'bar', 'name': 'Rec Sales' },
+        {'x': selected_county['year'], 'y': selected_county['tot_sales'], 'type': 'bar', 'name': 'Tot Sales' },
+    ]
+
+    
+    return {
+        'data': trace1,
+        'layout': go.Layout(
+            height = 350,
+            title = '{} COUNTY REVENUE BY YEAR'.format(clickData['points'][-1]['text']),
+            font = {'size': 8}
+        ),
+    }

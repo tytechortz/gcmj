@@ -128,10 +128,66 @@ def revenue_App():
                 className='col-1', # Blank 1 column
             ),
         ],
-        className = 'row',
-        style = externalgraph_rowstyling, # External row
+            className = 'row',
+            style = externalgraph_rowstyling, # External row
         ),
-
+        get_emptyrow(),
+        html.Div([
+            html.Div([
+            ],
+                className='col-1', # Blank 1 column
+            ),
+            html.Div([
+                dcc.Checklist(
+                    id='rev',
+                    options=[
+                        {'label':'Total Sales', 'value':'TOTAL'},
+                        {'label':'Rec Sales','value':'REC'},
+                        {'label':'Med Sales','value':'MED'},
+                    ],
+                    labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
+                    value = ['TOTAL'],
+                    style = {'text-align': 'center'}
+                    ),
+            ],
+                className='col-6'
+            ),
+            html.Div([
+                dcc.Slider(
+                    id='month',
+                    min=1,
+                    max=12,
+                    step=1,
+                    marks={x: '{}'.format(x) for x in range(1, 13)},
+                    value=1
+                )
+            ],
+                className='col-4'
+            ),
+            html.Div([
+            ],
+                className='col-1', # Blank 1 column
+            ),
+        ],
+            className = 'row',
+            style = externalgraph_rowstyling, # External row
+        ),
+        html.Div([
+            html.Div([
+                dcc.Graph(id='rev-scatter')
+            ],
+                className='col-6'
+            ),
+            html.Div([
+                dcc.Graph(id='month-rev-bar')
+            ],
+                className='col-6'
+            ),
+        ],
+            className = 'row',
+            style = externalgraph_rowstyling, # External row
+        ),
+        html.Div(id='crat', style={'display': 'none'}),
     ])
 
 # def revenue_App():
@@ -211,29 +267,29 @@ def revenue_App():
 #         ),
 #         html.Div([
 #             html.Div([
-#                 dcc.Checklist(
-#                     id='rev',
-#                     options=[
-#                         {'label':'Total Sales', 'value':'TOTAL'},
-#                         {'label':'Rec Sales','value':'REC'},
-#                         {'label':'Med Sales','value':'MED'},
-#                     ],
-#                     labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
-#                     value = ['TOTAL'],
-#                     style = {'text-align': 'center'}
-#                     ),
+                # dcc.Checklist(
+                #     id='rev',
+                #     options=[
+                #         {'label':'Total Sales', 'value':'TOTAL'},
+                #         {'label':'Rec Sales','value':'REC'},
+                #         {'label':'Med Sales','value':'MED'},
+                #     ],
+                #     labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
+                #     value = ['TOTAL'],
+                #     style = {'text-align': 'center'}
+                #     ),
 #             ],
 #                 className='six columns'
 #             ),
 #             html.Div([
-#                 dcc.Slider(
-#                     id='month',
-#                     min=1,
-#                     max=12,
-#                     step=1,
-#                     marks={x: '{}'.format(x) for x in range(1, 13)},
-#                     value=1
-#                 )
+                # dcc.Slider(
+                #     id='month',
+                #     min=1,
+                #     max=12,
+                #     step=1,
+                #     marks={x: '{}'.format(x) for x in range(1, 13)},
+                #     value=1
+                # )
 #             ],
 #                 className='six columns'
 #             ),
@@ -241,11 +297,11 @@ def revenue_App():
 #             className='row'
 #         ),
 #         html.Div([
-#             html.Div([
-#                 dcc.Graph(id='rev-scatter')
-#             ],
-#                 className='six columns'
-#             ),
+            # html.Div([
+            #     dcc.Graph(id='rev-scatter')
+            # ],
+            #     className='six columns'
+            # ),
 #             html.Div([
 #                 dcc.Graph(id='month-rev-bar')
 #             ],
@@ -254,7 +310,7 @@ def revenue_App():
 #         ],
 #             className='row'
 #         ),
-#         html.Div(id='crat', style={'display': 'none'}),
+        # html.Div(id='crat', style={'display': 'none'}),
 #     ])
 
 
