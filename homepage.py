@@ -1,5 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
+import plotly.express as px
 import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
@@ -7,6 +8,7 @@ import dash
 from datetime import datetime as dt
 from app import app
 import dash_bootstrap_components as dbc
+from data import df_revenue, df_pc
 
 
 app = dash.Dash(__name__)
@@ -134,6 +136,139 @@ def get_emptyrow(h='15px'):
 
     return emptyrow
 
+
+# url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv"
+# dataset2 = pd.read_csv(url)
+# print(dataset2)
+
+# df = df_revenue
+# df = df.fillna(0)
+df = df_pc.fillna(0)
+
+dataset = df
+# dataset.fillna(0)
+print(dataset)
+
+years = ["2014", "2015", "2016", "2017", "2018", "2019", "2020"]
+
+counties = []
+for county in dataset["county"]:
+    if county not in counties:
+        counties.append(county)
+# print(counties)
+fig_dict = {
+    "data": [],
+    "layout": {},
+    "frames": []
+}
+
+fig_dict["layout"]["xaxis"] = {"range": [0, 2000], "title": "PerCap Rev"}
+fig_dict["layout"]["yaxis"] = {"range": [0, 100000000], "title": "Tot. Rev."}
+fig_dict["layout"]["hovermode"] = "closest"
+fig_dict["layout"]["updatemenus"] = [
+    {
+        "buttons": [
+            {
+                "args": [None, {"frame": {"duration": 500, "redraw": False},
+                                "fromcurrent": True, "transition": {"duration": 300,
+                                                                    "easing": "quadratic-in-out"}}],
+                "label": "Play",
+                "method": "animate"                                                      
+            },
+            {
+                "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                                  "mode": "immediate",
+                                  "transition": {"duration": 0}}],
+                "label": "Pause",
+                "method": "animate"
+            }
+        ],
+        "direction": "left",
+        "pad": {"r": 10, "t": 87},
+        "showactive": False,
+        "type": "buttons",
+        "x": 0.1,
+        "xanchor": "right",
+        "y": 0,
+        "yanchor": "top"
+    }
+]
+
+sliders_dict = {
+    "active": 0,
+    "yanchor": "top",
+    "xanchor": "left",
+    "currentvalue": {
+
+        "font": {"size": 20},
+        "prefix": "Year:",
+        "visible": True,
+        "xanchor": "right"
+    },
+    "transition": {"duration": 300, "easing": "cubic-in-out"},
+    "pad": {"b": 10, "t": 50},
+    "len": 0.9,
+    "x": 0.1,
+    "y": 0,
+    "steps": []
+}
+
+year = 2014
+for county in counties:
+    dataset_by_year = dataset[dataset["year"] == year]
+    dataset_by_year_and_county = dataset_by_year[dataset_by_year["county"] == county]
+
+    data_dict = {
+        "x": list(dataset_by_year_and_county["pc_rev"]),
+        "y": list(dataset_by_year_and_county["tot_sales"]),
+        "mode": "markers",
+        "text": list(dataset_by_year_and_county["county"]),
+        "marker": {
+            "sizemode": "area",
+            "sizeref": 20000,
+            "size": list(dataset_by_year_and_county["totalpopulation"])
+        },
+        "name": county
+    }
+    fig_dict["data"].append(data_dict)
+
+for year in years:
+    frame = {"data": [], "name": str(year)}
+    for county in counties:
+        dataset_by_year = dataset[dataset["year"] == int(year)]
+        dataset_by_year_and_county = dataset_by_year[dataset_by_year["county"] == county]
+
+        data_dict = {
+            "x": list(dataset_by_year_and_county["pc_rev"]),
+            "y": list(dataset_by_year_and_county["tot_sales"]),
+            "mode": "markers",
+            "text": list(dataset_by_year_and_county["county"]),
+            "marker": {
+                "sizemode": "area",
+                "sizeref": 20000,
+                "size": list(dataset_by_year_and_county["totalpopulation"]),
+            },
+            "name": county
+        }
+        frame["data"].append(data_dict)
+    fig_dict["frames"].append(frame)
+    slider_step = {"args": [
+        [year],
+        {"frame": {"duration": 300, "redraw": False},
+        "mode": "immediate",
+        "transition": {"duratiion": 300}}
+    ],
+        "label": year,
+        "method": "animate"}
+    sliders_dict["steps"].append(slider_step)
+
+fig_dict["layout"]["sliders"] = [sliders_dict]
+
+fig = go.Figure(fig_dict)
+
+
+
+
     
 def home_page_App():
     return html.Div([
@@ -149,7 +284,8 @@ def home_page_App():
             ),
             html.Div([
                 html.H4(children='Cannabis Data',
-                        style={'color' : 'white', 'textAlign' : 'center'})
+                        style={'color' : 'white', 'textAlign' : 'center'}),
+                html.Div(fig.show())
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column
