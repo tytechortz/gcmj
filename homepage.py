@@ -9,6 +9,26 @@ from app import app
 import dash_bootstrap_components as dbc
 
 
+app = dash.Dash(__name__)
+app.config['suppress_callback_exceptions']=True
+
+server = app.server
+
+externalgraph_colstyling = {
+    'border-radius' : '10px',
+    'border-style' : 'solid',
+    'border-width' : '1px',
+    'border-color' : 'green',
+    'background-color' : 'green',
+    'box-shadow' : '2px 5px 5px 1px rgba(0, 100, 0, .5)',
+    'padding-top' : '10px'
+}
+
+externalgraph_rowstyling = {
+    'margin-left' : '15px',
+    'margin-right' : '15px'
+}
+
 def get_header():
 
     header = html.Div([
@@ -94,7 +114,7 @@ def get_navbar(p = 'homepage'):
     ],
     className = 'row',
     style = {'background-color' : 'dark-green',
-            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)'}
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
     )
     if p == 'homepage':
         return navbar_homepage
@@ -121,61 +141,29 @@ def home_page_App():
 
         get_navbar('homepage'),
 
-        
+        get_emptyrow(),
+        html.Div([
+            html.Div([
+            ],
+                className = 'col-1', # Blank 1 column
+            ),
+            html.Div([
+                html.H4(children='Cannabis Data',
+                        style={'color' : 'white', 'textAlign' : 'center'})
+            ],
+                className='col-10',
+                style = externalgraph_colstyling, # External 10-column
+            ),
+            html.Div([
+            ],
+                className = 'col-1', # Blank 1 column
+            ),
+        ],
+        className='row',
+        style=externalgraph_rowstyling, # External row
+        ),
     ])
 
 
 app.layout = home_page_App
 
-#     html.Div([
-#         html.Div([
-#             html.H4('Revenue'),
-#             html.P(""" Colorado cannabis total revenue. """),
-#             dbc.Button("Click for Revenue Page", color="primary", href="/revenue"),
-#         ],
-#             className='twelve columns'
-#         ),
-#     ],
-#         className='row'
-#     ),
-#     html.Div([
-#         html.Div([
-#             html.H4('Per Capita Revenue'),
-#             html.P(""" Colorado cannabis per capita revenue. """),
-#             dbc.Button("Click for Per Capita Revenue Page", color="primary", href="/pcrev"),
-#         ],
-#             className='twelve columns'
-#         ),
-#     ],
-#         className='row'
-#     ),
-#     html.Div([
-#         html.Div([
-#             html.H4('Per License Revenue'),
-#             html.P(""" Colorado cannabis per license revenue. """),
-#             dbc.Button("Click for Per License Revenue Page", color="primary", href="/plrev"),
-#         ],
-#             className='twelve columns'
-#         ),
-#     ],
-#         className='row'
-#     ),
-#     html.Div([
-#         html.Div([
-#             html.H4('Businesses'),
-#             html.P(""" Colorado cannabis licensee locations. """),
-#             dbc.Button("Click for Cannabis Businesses Page", color="primary", href="/biz"),
-#         ],
-#             className='twelve columns'
-#         ),
-#     ],
-#         className='row'
-#     ),
-
-# ])
-
-# def Homepage():
-#     layout = html.Div([
-#     home_page_body
-#     ])
-#     return layout

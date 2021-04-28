@@ -62,8 +62,8 @@ def revenue_App():
                 className = 'col-1', # Blank 1 column
             ),
             html.Div([ # External 10-column
-                html.H4(children = "Revenue By County",
-                        style = {'color' : 'white', 'textAlign' : 'center'}),
+                html.H4(children="Revenue By County",
+                        style={'color' : 'white', 'textAlign' : 'center'}),
                 html.Div([ # Internal Row
                     html.Div([
                         dcc.Graph('revenue-map')
@@ -121,7 +121,7 @@ def revenue_App():
                             ],
                             labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
                             value = ['TOTAL'],
-                            style = {'text-align': 'center'}
+                            style = {'text-align': 'center', }
                             ),
                     ],
                         className='col-6'
@@ -133,7 +133,7 @@ def revenue_App():
                             max=12,
                             step=1,
                             marks={x: '{}'.format(x) for x in range(1, 13)},
-                            value=1
+                            value=1,
                         )
                     ],
                         className='col-6'
