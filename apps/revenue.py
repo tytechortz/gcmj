@@ -35,7 +35,7 @@ externalgraph_colstyling = {
     'border-width' : '1px',
     'border-color' : 'green',
     'background-color' : 'green',
-    'box-shadow' : '0px 0px 17px 0px rgba(186, 218, 212, .5)',
+    'box-shadow' : '2px 5px 5px 1px rgba(0, 100, 0, .5)',
     'padding-top' : '10px'
 }
 
@@ -83,7 +83,6 @@ def revenue_App():
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column
             ),
-            
             html.Div([
             ],
                 className='col-1', # Blank 1 column
@@ -92,8 +91,12 @@ def revenue_App():
         className='row',
         style=externalgraph_rowstyling, # External row
         ),
-
+        get_emptyrow(),
         html.Div([
+            html.Div([
+            ],
+                className='col-1', # Blank 1 column
+            ),
             html.Div([
                 dcc.Slider(
                     id='year',
@@ -104,7 +107,25 @@ def revenue_App():
                     value=2014
                 ),
             ],
-                className='col-12'
+                className='col-6'
+            ),
+            html.Div([
+                dcc.RadioItems(
+                    id='month-year', 
+                    options=[
+                        {'label':'Year', 'value':'yr'},
+                        {'label':'Month', 'value':'mo'},
+                    ],
+                    labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
+                    value='mo',
+                    style = {'text-align': 'center'}
+                ),
+            ],
+                className='col-4'
+            ),
+            html.Div([
+            ],
+                className='col-1', # Blank 1 column
             ),
         ],
         className = 'row',
@@ -172,16 +193,16 @@ def revenue_App():
 #             ],
 #                 className='eight columns'
 #             ),
-#             html.Div([
-#                 dcc.RadioItems(id='month-year', 
-#                 options=[
-#                     {'label':'Year', 'value':'yr'},
-#                     {'label':'Month', 'value':'mo'},
-#                 ],
-#                 labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
-#                 value='mo',
-#                 style = {'text-align': 'center'}
-#                 ),
+            # html.Div([
+            #     dcc.RadioItems(id='month-year', 
+            #     options=[
+            #         {'label':'Year', 'value':'yr'},
+            #         {'label':'Month', 'value':'mo'},
+            #     ],
+            #     labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
+            #     value='mo',
+            #     style = {'text-align': 'center'}
+            #     ),
 #             ],
 #                 className='four columns'
 #             ),

@@ -101,7 +101,7 @@ def get_navbar(p = 'homepage'):
     elif p == 'revenue':
         return navbar_revenue
 
-def get_emptyrow(h='45px'):
+def get_emptyrow(h='15px'):
     """This returns an empty row of a defined height"""
 
     emptyrow = html.Div([
