@@ -35,7 +35,7 @@ def get_navbar(p = 'homepage'):
         html.Div([], className='col-3'),
         html.Div([
             dcc.Link(
-                html.H4(children='Home'),
+                html.H6(children='Home'),
                 href='/homepage'
             )
         ],
@@ -43,7 +43,7 @@ def get_navbar(p = 'homepage'):
         ),
         html.Div([
             dcc.Link(
-                html.H4(children='Per Capita Rev.'),
+                html.H6(children='Per Capita Revenue'),
                 href='/pcrev'
             )
         ],
@@ -51,7 +51,7 @@ def get_navbar(p = 'homepage'):
         ),
         html.Div([
             dcc.Link(
-                html.H4(children='Per License Rev.'),
+                html.H6(children='Per License Revenue'),
                 href='/plrev'
             )
         ],
@@ -60,8 +60,8 @@ def get_navbar(p = 'homepage'):
         html.Div([], className = 'col-3')
     ],
     className = 'row',
-    style = {'background-color' : 'dark-green',
-            'box-shadow': '2px 5px 5px 1px rgba(255, 101, 131, .5)'}
+    style = {'background-color' : 'fern',
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
     )
 
     navbar_homepage = html.Div([
@@ -100,6 +100,20 @@ def get_navbar(p = 'homepage'):
         return navbar_homepage
     elif p == 'revenue':
         return navbar_revenue
+
+def get_emptyrow(h='45px'):
+    """This returns an empty row of a defined height"""
+
+    emptyrow = html.Div([
+        html.Div([
+            html.Br()
+        ], className = 'col-12')
+    ],
+    className = 'row',
+    style = {'height' : h})
+
+    return emptyrow
+
     
 def home_page_App():
     return html.Div([

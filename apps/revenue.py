@@ -4,7 +4,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 
-from homepage import get_header, get_navbar
+from homepage import get_header, get_navbar, get_emptyrow
 
 
 
@@ -19,10 +19,28 @@ mapdiv_borderstyling = {
     'border-radius' : '0px 0px 10px 10px',
     'border-style' : 'solid',
     'border-width' : '1px',
-    'border-color' : 'light-green',
-    'background-color' : 'light-green',
-    'box-shadow' : '2px 5px 5px 1px rgba(255, 101, 131, .5)'
+    'border-color' : 'green',
+    'background-color' : 'green',
+    'box-shadow' : '2px 5px 5px 1px rgba(0, 100, 0, .5)'
     }
+
+externalgraph_rowstyling = {
+    'margin-left' : '15px',
+    'margin-right' : '15px'
+}
+
+externalgraph_colstyling = {
+    'border-radius' : '10px',
+    'border-style' : 'solid',
+    'border-width' : '1px',
+    'border-color' : 'green',
+    'background-color' : 'green',
+    'box-shadow' : '0px 0px 17px 0px rgba(186, 218, 212, .5)',
+    'padding-top' : '10px'
+}
+
+
+
 
 def revenue_App():
     return html.Div([
@@ -36,36 +54,62 @@ def revenue_App():
 
         #####################
         #Row 3 : Map, Instructions
+        
+        get_emptyrow(),
         html.Div([
             html.Div([
-                html.Div([
+            ],
+                className = 'col-1', # Blank 1 column
+            ),
+            html.Div([ # External 10-column
+                html.H4(children = "Revenue By County",
+                        style = {'color' : 'white', 'textAlign' : 'center'}),
+                html.Div([ # Internal Row
                     html.Div([
-                        html.Div([
-                            dcc.Graph('revenue-map')
-                        ],
-                            style = {'margin-top' : '10px',
-                                'margin-bottom' : '5px'}
-                        ),
+                        dcc.Graph('revenue-map')
                     ],
                         className='col-8'
                     ),
                     html.Div([
                         dcc.Markdown('''Click on counties and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
-                        Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')
+                        Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')    
                     ],
                         className='col-4'
                     ),
-                ],
-                    className='row'
-                ),
             ],
-                className='col-12',
-                style=mapdiv_borderstyling
+                className='row'
+            ),
+            ],
+                className='col-10',
+                style = externalgraph_colstyling, # External 10-column
+            ),
+            
+            html.Div([
+            ],
+                className='col-1', # Blank 1 column
             ),
         ],
-            className='row'
+        className='row',
+        style=externalgraph_rowstyling, # External row
         ),
 
+        html.Div([
+            html.Div([
+                dcc.Slider(
+                    id='year',
+                    min=2014,
+                    max=2020,
+                    step=1,
+                    marks={x: '{}'.format(x) for x in range(2014, 2021)},
+                    value=2014
+                ),
+            ],
+                className='col-12'
+            ),
+        ],
+        className = 'row',
+        style = externalgraph_rowstyling, # External row
+        ),
 
     ])
 
@@ -107,8 +151,8 @@ def revenue_App():
 #                 className='eight columns'
 #             ),
 #             html.Div([
-#                 dcc.Markdown('''Click on counties and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
-#                 Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')
+                # dcc.Markdown('''Click on counties and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
+                # Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')
 #             ],
 #                 className='four columns'
 #             ),
@@ -117,14 +161,14 @@ def revenue_App():
 #         ),
 #         html.Div([
 #             html.Div([
-#                 dcc.Slider(
-#                     id='year',
-#                     min=2014,
-#                     max=2020,
-#                     step=1,
-#                     marks={x: '{}'.format(x) for x in range(2014, 2021)},
-#                     value=2014
-#                 ),
+                # dcc.Slider(
+                #     id='year',
+                #     min=2014,
+                #     max=2020,
+                #     step=1,
+                #     marks={x: '{}'.format(x) for x in range(2014, 2021)},
+                #     value=2014
+                # ),
 #             ],
 #                 className='eight columns'
 #             ),
