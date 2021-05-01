@@ -20,7 +20,7 @@ def plrev_App():
         get_header(),
 
         #Row 2 : Nav bar
-        get_navbar('revenue'),
+        get_navbar('pl_rev'),
 
         #####################
         #Row 3 : Map, Instructions

@@ -53,8 +53,141 @@ def get_header():
     return header
 
 def get_navbar(p = 'homepage'):
+    navbar_homepage = html.Div([
+        html.Div([], className='col-2'),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Revenue'),
+                href='/apps/revenue'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per Capita Rev.'),
+                href='/apps/pcrev'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per License Rev.'),
+                href='/apps/plrev'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Businesses'),
+                href='/apps/biz'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([], className = 'col-2')
+    ],
+    className = 'row',
+    style = {'background-color' : 'dark-green',
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
+    )
     navbar_revenue = html.Div([
-        html.Div([], className='col-3'),
+        html.Div([], className='col-2'),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Home'),
+                href='/homepage'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per Capita Revenue'),
+                href='/apps/pc_rev'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per License Revenue'),
+                href='/apps/pl_rev'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Businesses'),
+                href='/apps/biz'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([], className = 'col-2')
+    ],
+    className = 'row',
+    style = {'background-color' : 'fern',
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
+    )
+    navbar_pcrev = html.Div([
+        html.Div([], className='col-2'),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Home'),
+                href='/homepage'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+            
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Revenue'),
+                href='/apps/revenue'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per License Revenue'),
+                href='/apps/pc_rev'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Businesses'),
+                href='/apps/biz'
+            )
+        ],
+            className='col-2',
+            style={'text-align': 'center'}
+        ),
+        html.Div([], className = 'col-2')
+    ],
+    className = 'row',
+    style = {'background-color' : 'dark-green',
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
+    )
+    navbar_plrev = html.Div([
+        html.Div([], className='col-2'),
         html.Div([
             dcc.Link(
                 html.H6(children='Home'),
@@ -65,55 +198,20 @@ def get_navbar(p = 'homepage'):
         ),
         html.Div([
             dcc.Link(
-                html.H6(children='Per Capita Revenue'),
-                href='/pcrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per License Revenue'),
-                href='/plrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([], className = 'col-3')
-    ],
-    className = 'row',
-    style = {'background-color' : 'fern',
-            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
-    )
-
-    navbar_homepage = html.Div([
-        # html.Div([], className='col-1'),
-        html.Div([
-            dcc.Link(
                 html.H6(children='Revenue'),
                 href='/apps/revenue'
             )
         ],
-            className='col-3',
+            className='col-2',
             style={'text-align': 'center'}
         ),
         html.Div([
             dcc.Link(
                 html.H6(children='Per Capita Rev.'),
-                href='/apps/pcrev'
+                href='/apps/pc_rev'
             )
         ],
-            className='col-3',
-            style={'text-align': 'center'}
-        ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per License Rev.'),
-                href='/apps/plrev'
-            )
-        ],
-            className='col-3',
-            style={'text-align': 'center'}
+            className='col-2'
         ),
         html.Div([
             dcc.Link(
@@ -121,74 +219,9 @@ def get_navbar(p = 'homepage'):
                 href='/apps/biz'
             )
         ],
-            className='col-3',
-            style={'text-align': 'center'}
-        ),
-        # html.Div([], className = 'col-1')
-    ],
-    className = 'row',
-    style = {'background-color' : 'dark-green',
-            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
-    )
-    navbar_pcrev = html.Div([
-        html.Div([], className='col-3'),
-        html.Div([
-            dcc.Link(
-                html.H6(children='homepage'),
-                href='/homepage'
-            )
-        ],
             className='col-2'
         ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per Capita Rev.'),
-                href='/apps/pcrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per License Rev.'),
-                href='/apps/plrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([], className = 'col-3')
-    ],
-    className = 'row',
-    style = {'background-color' : 'dark-green',
-            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
-    )
-    navbar_plrev = html.Div([
-        html.Div([], className='col-3'),
-        html.Div([
-            dcc.Link(
-                html.H6(children='homepage'),
-                href='/homepage'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per Capita Rev.'),
-                href='/apps/pcrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([
-            dcc.Link(
-                html.H6(children='Per License Rev.'),
-                href='/apps/plrev'
-            )
-        ],
-            className='col-2'
-        ),
-        html.Div([], className = 'col-3')
+        html.Div([], className = 'col-2')
     ],
     className = 'row',
     style = {'background-color' : 'dark-green',
@@ -198,6 +231,12 @@ def get_navbar(p = 'homepage'):
         return navbar_homepage
     elif p == 'revenue':
         return navbar_revenue
+    elif p == 'pc_rev':
+        return navbar_pcrev
+    elif p == 'pl_rev':
+        return navbar_plrev
+    elif p == 'biz':
+        return navbar_biz
 
 def get_emptyrow(h='15px'):
     """This returns an empty row of a defined height"""

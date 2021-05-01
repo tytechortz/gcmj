@@ -13,14 +13,14 @@ app.config['suppress_callback_exceptions']=True
 
 server = app.server
 
-def pcrev_App():
+def biz_App():
     return html.Div([
         ##############################
         #Row 1 : Header
         get_header(),
 
         #Row 2 : Nav bar
-        get_navbar('pc_rev'),
+        get_navbar('biz'),
 
         #####################
         #Row 3 : Map, Instructions
@@ -28,4 +28,4 @@ def pcrev_App():
 
 
 
-app.layout = pcrev_App
+app.layout = biz_App

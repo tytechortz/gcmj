@@ -8,6 +8,7 @@ from homepage import home_page_App
 from apps.revenue import revenue_App
 from apps.pc_rev import pcrev_App
 from apps.pl_rev import plrev_App
+from apps.biz import biz_App
 
 import callbacks
 
@@ -25,6 +26,8 @@ def display_page(pathname):
          return pcrev_App()
     elif pathname == '/apps/plrev':
          return plrev_App()
+    elif pathname == '/apps/biz':
+         return biz_App()
     else:
         return home_page_App()
 
