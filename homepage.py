@@ -87,11 +87,51 @@ def get_navbar(p = 'homepage'):
     )
 
     navbar_homepage = html.Div([
-        html.Div([], className='col-3'),
+        html.Div([], className='col-1'),
         html.Div([
             dcc.Link(
                 html.H6(children='Revenue'),
                 href='/apps/revenue'
+            )
+        ],
+            className='col-2'
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per Capita Rev.'),
+                href='/apps/pcrev'
+            )
+        ],
+            className='col-2'
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Per License Rev.'),
+                href='/apps/plrev'
+            )
+        ],
+            className='col-2'
+        ),
+        html.Div([
+            dcc.Link(
+                html.H6(children='Businesses'),
+                href='/apps/biz'
+            )
+        ],
+            className='col-2'
+        ),
+        html.Div([], className = 'col-1')
+    ],
+    className = 'row',
+    style = {'background-color' : 'dark-green',
+            'box-shadow': '2px 5px 5px 1px rgba(0, 100, 0, .5)'}
+    )
+    navbar_pcrev = html.Div([
+        html.Div([], className='col-3'),
+        html.Div([
+            dcc.Link(
+                html.H6(children='homepage'),
+                href='/homepage'
             )
         ],
             className='col-2'
