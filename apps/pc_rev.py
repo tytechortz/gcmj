@@ -18,6 +18,12 @@ def pcrev_App():
         ##############################
         #Row 1 : Header
         get_header(),
+
+        #Row 2 : Nav bar
+        get_navbar('revenue'),
+
+        #####################
+        #Row 3 : Map, Instructions
     ])
 
 
