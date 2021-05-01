@@ -67,7 +67,7 @@ def get_navbar(p = 'homepage'):
         html.Div([
             dcc.Link(
                 html.H6(children='Per Capita Rev.'),
-                href='/apps/pcrev'
+                href='/apps/pc_rev'
             )
         ],
             className='col-2',
@@ -76,7 +76,7 @@ def get_navbar(p = 'homepage'):
         html.Div([
             dcc.Link(
                 html.H6(children='Per License Rev.'),
-                href='/apps/plrev'
+                href='/apps/pl_rev'
             )
         ],
             className='col-2',

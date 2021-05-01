@@ -22,9 +22,9 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/apps/revenue':
          return revenue_App()
-    elif pathname == '/apps/pcrev':
+    elif pathname == '/apps/pc_rev':
          return pcrev_App()
-    elif pathname == '/apps/plrev':
+    elif pathname == '/apps/pl_rev':
          return plrev_App()
     elif pathname == '/apps/biz':
          return biz_App()
