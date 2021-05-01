@@ -6,6 +6,7 @@ from app import app
 from app import server
 from homepage import home_page_App
 from apps.revenue import revenue_App
+from apps.pc_rev import pcrev_App
 
 import callbacks
 
@@ -19,8 +20,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/apps/revenue':
          return revenue_App()
-    # elif pathname == '/apps/page2':
-    #      return page2
+    elif pathname == '/apps/pcrev':
+         return pcrev_App()
     # elif pathname == '/apps/page3':
     #      return page3
     else:

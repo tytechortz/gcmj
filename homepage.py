@@ -148,12 +148,14 @@ df = df_pc
 # df['diff'] = df.groupby('county').apply(lambda x: x['totalpopulation'].shift(1) - x['totalpopulation'])
 # df = df.groupby('county')
 df = df[df.county != 'SUM OF NR COUNTIES']
+df.drop(['color', 'COUNTY', 'CENT_LAT', 'CENT_LONG'], axis=1, inplace=True)
 df['diff'] = df['totalpopulation'] - df['totalpopulation'].shift(64)
 df = df.fillna(0)
 print(df)
 df['diff'] = df['diff'].astype(int)
 
 df['cum_sum'] = df.groupby(['county'])['diff'].apply(lambda x: x.cumsum())
+df['cum_pct'] = df.apply(lambda x: (x['cum_sum'] / x['totalpopulation']), axis=1)
 # for index, row in df.iterrows():
 #     df['cum'] = df['diff'].loc[index] + df['diff'].loc[index+64]
 # df['cum'] = df.groupby('county').apply(lambda x: x['diff'] + df.loc[].reset_index(drop=True)
@@ -165,7 +167,7 @@ print(df)
 df = df.fillna(0)
 dataset = df
 
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
     print(dataset)
 
 years = ["2014", "2015", "2016", "2017", "2018", "2019", "2020"]
@@ -181,8 +183,8 @@ fig_dict = {
     "frames": []
 }
 
-fig_dict["layout"]["xaxis"] = {"range": [-1000, 20000], "title": "PerCap Rev"}
-fig_dict["layout"]["yaxis"] = {"range": [0, 2000], "title": "Tot. Rev."}
+fig_dict["layout"]["xaxis"] = {"range": [-200, 5000], "title": "PerCap Rev"}
+fig_dict["layout"]["yaxis"] = {"range": [-.15, .3], "title": "Tot. Rev."}
 fig_dict["layout"]["hovermode"] = "closest"
 fig_dict["layout"]["updatemenus"] = [
     {
@@ -238,14 +240,14 @@ for county in counties:
     dataset_by_year_and_county = dataset_by_year[dataset_by_year["county"] == county]
 
     data_dict = {
-        "x": list(dataset_by_year_and_county["diff"]),
-        "y": list(dataset_by_year_and_county["pc_rev"]),
+        "x": list(dataset_by_year_and_county["pc_rev"]),
+        "y": list(dataset_by_year_and_county["cum_pct"]),
         "mode": "markers",
         "text": list(dataset_by_year_and_county["county"]),
         "marker": {
             "sizemode": "area",
-            "sizeref": 10,
-            "size": list(dataset_by_year_and_county["pc_rev"])
+            "sizeref": 300,
+            "size": list(dataset_by_year_and_county["totalpopulation"])
         },
         "name": county
     }
@@ -258,14 +260,14 @@ for year in years:
         dataset_by_year_and_county = dataset_by_year[dataset_by_year["county"] == county]
 
         data_dict = {
-            "x": list(dataset_by_year_and_county["diff"]),
-            "y": list(dataset_by_year_and_county["pc_rev"]),
+            "x": list(dataset_by_year_and_county["pc_rev"]),
+            "y": list(dataset_by_year_and_county["cum_pct"]),
             "mode": "markers",
             "text": list(dataset_by_year_and_county["county"]),
             "marker": {
                 "sizemode": "area",
-                "sizeref": 10,
-                "size": list(dataset_by_year_and_county["pc_rev"]),
+                "sizeref": 300,
+                "size": list(dataset_by_year_and_county["totalpopulation"]),
             },
             "name": county
         }
