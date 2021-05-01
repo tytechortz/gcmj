@@ -13,6 +13,21 @@ app.config['suppress_callback_exceptions']=True
 
 server = app.server
 
+externalgraph_colstyling = {
+    'border-radius' : '10px',
+    'border-style' : 'solid',
+    'border-width' : '1px',
+    'border-color' : 'green',
+    'background-color' : 'green',
+    'box-shadow' : '2px 5px 5px 1px rgba(0, 100, 0, .5)',
+    'padding-top' : '10px'
+}
+
+externalgraph_rowstyling = {
+    'margin-left' : '15px',
+    'margin-right' : '15px'
+}
+
 def plrev_App():
     return html.Div([
         ##############################
@@ -24,6 +39,27 @@ def plrev_App():
 
         #####################
         #Row 3 : Map, Instructions
+        get_emptyrow(),
+        html.Div([
+            html.Div([
+            ],
+                className = 'col-1', #Blank column
+            ),
+            html.Div([ #External 10-column
+                html.H4(children='Per License Revenue by County')
+            ],
+                className='col-10',
+                style = externalgraph_colstyling, # External 10-column 
+            ),
+            html.Div([
+            ],
+                className = 'col-1', #Blank column
+            ),
+        ],
+        className='row',
+        style=externalgraph_rowstyling, # External row
+        ),
+        get_emptyrow(),
     ])
 
 
