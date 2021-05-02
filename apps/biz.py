@@ -64,7 +64,8 @@ def biz_App():
                         className='col-8'
                     ),
                     html.Div([
-                        dcc.Markdown('''Map shows markers for locations of 2019 cannabis licenses, the latest year available, color coded by license type. Select license type radio buttons to filter map. Use year slider below map to display number of licensees for given year in bar graph below'''),
+                        dcc.Markdown('''Map shows markers for locations of 2019 cannabis licenses, the latest year available, color coded by license type. Select license type radio buttons to filter map. Use year slider below map to display number of licensees for given year in bar graph below''',
+                        style={'color': 'white'}),
                         dcc.RadioItems(id='categories', options=[
                         {'label':'All', 'value':'all'},
                         {'label':'Transporters','value':'MED Licensed Transporters'},
@@ -80,7 +81,8 @@ def biz_App():
                         {'label':'Retail Transporter','value':'MED Licensed Retail Transporter'},
                         {'label':'Retail Marijuana Store','value':'MED Licensed Retail Marijuana Store'},
                         ],        
-                        labelStyle={'display':'block', 'margin': 0, 'padding': 1},
+                        labelStyle={'color': 'white',
+                        'display':'block', 'margin': 0, 'padding': 1},
                         value = 'all'
                         ),
                     ],
