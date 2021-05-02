@@ -55,13 +55,36 @@ def biz_App():
                 className = 'col-1', #Blank column
             ),
             html.Div([ #External 10-column
-                html.H4(children='Businesses',
+                html.H4(children='Cannabis Businesses',
                         style={'color' : 'white', 'textAlign' : 'center'}),
                 html.Div([#Internal Row
                     html.Div([
                         dcc.Graph('biz-map')
                     ],
                         className='col-8'
+                    ),
+                    html.Div([
+                        dcc.Markdown('''Map shows markers for locations of 2019 cannabis licenses, the latest year available, color coded by license type. Select license type radio buttons to filter map. Use year slider below map to display number of licensees for given year in bar graph below'''),
+                        dcc.RadioItems(id='categories', options=[
+                        {'label':'All', 'value':'all'},
+                        {'label':'MED Licensed Transporters','value':'MED Licensed Transporters'},
+                        {'label':'MED Licensed Center','value':'MED Licensed Center'},
+                        {'label':'MED Licensed Cultivator','value':'MED Licensed Cultivator'},
+                        {'label':'MED Licensed Infused Product Manufacturer','value':'MED Licensed Infused Product Manufacturer'},
+                        {'label':'MED Licensed R&D Cultivation','value':'MED Licensed R&D Cultivation'},
+                        {'label':'MED Licensed Retail Operator','value':'MED Licensed Retail Operator'},
+                        {'label':'MED Licensed Testing Facility','value':'MED Licensed Testing Facility'},
+                        {'label':'MED Licensed Retail Marijuana Product Manufacturer','value':'MED Licensed Retail Marijuana Product Manufacturer'},
+                        {'label':'MED Licensed Retail Cultivator','value':'MED Licensed Retail Cultivator'},
+                        {'label':'MED Licensed Retail Testing Facility','value':'MED Licensed Retail Testing Facility'},
+                        {'label':'MED Licensed Retail Transporter','value':'MED Licensed Retail Transporter'},
+                        {'label':'MED Licensed Retail Marijuana Store','value':'MED Licensed Retail Marijuana Store'},
+                        ],        
+                        labelStyle={'display':'block', 'margin': 0, 'padding': 1},
+                        value = 'all'
+                        ),
+                    ],
+                        className='col-4'
                     ),
                 ],
                     className='row'
