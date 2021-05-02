@@ -190,11 +190,12 @@ def get_navbar(p = 'homepage'):
         html.Div([], className='col-2'),
         html.Div([
             dcc.Link(
-                html.H6(children='Home-pl'),
+                html.H6(children='Home'),
                 href='/homepage'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([
             dcc.Link(
@@ -211,7 +212,8 @@ def get_navbar(p = 'homepage'):
                 href='/apps/pc_rev'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([
             dcc.Link(
@@ -219,7 +221,8 @@ def get_navbar(p = 'homepage'):
                 href='/apps/biz'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([], className = 'col-2')
     ],
@@ -235,7 +238,8 @@ def get_navbar(p = 'homepage'):
                 href='/homepage'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([
             dcc.Link(
@@ -252,7 +256,8 @@ def get_navbar(p = 'homepage'):
                 href='/apps/pc_rev'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([
             dcc.Link(
@@ -260,7 +265,8 @@ def get_navbar(p = 'homepage'):
                 href='/apps/biz'
             )
         ],
-            className='col-2'
+            className='col-2',
+            style={'text-align': 'center'}
         ),
         html.Div([], className = 'col-2')
     ],
@@ -307,7 +313,7 @@ df = df[df.county != 'SUM OF NR COUNTIES']
 df.drop(['color', 'COUNTY', 'CENT_LAT', 'CENT_LONG'], axis=1, inplace=True)
 df['diff'] = df['totalpopulation'] - df['totalpopulation'].shift(64)
 df = df.fillna(0)
-print(df)
+# print(df)
 df['diff'] = df['diff'].astype(int)
 
 df['cum_sum'] = df.groupby(['county'])['diff'].apply(lambda x: x.cumsum())
@@ -318,7 +324,7 @@ df['cum_pct'] = df.apply(lambda x: (x['cum_sum'] / x['totalpopulation']), axis=1
 # df['cum-dif'] = df.groupby('county').apply(lambda x: x['diff'] + x['diff'].shift(-1)).reset_index(drop=True)
 
 # df.reset_index(drop=True, inplace=True)
-print(df)
+# print(df)
 
 df = df.fillna(0)
 dataset = df
