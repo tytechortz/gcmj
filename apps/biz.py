@@ -13,6 +13,15 @@ app.config['suppress_callback_exceptions']=True
 
 server = app.server
 
+mapdiv_borderstyling = {
+    'border-radius' : '0px 0px 10px 10px',
+    'border-style' : 'solid',
+    'border-width' : '1px',
+    'border-color' : 'green',
+    'background-color' : 'green',
+    'box-shadow' : '2px 5px 5px 1px rgba(0, 100, 0, .5)'
+    }
+
 externalgraph_colstyling = {
     'border-radius' : '10px',
     'border-style' : 'solid',
@@ -46,7 +55,17 @@ def biz_App():
                 className = 'col-1', #Blank column
             ),
             html.Div([ #External 10-column
-                html.H4(children='Businesses')
+                html.H4(children='Businesses',
+                        style={'color' : 'white', 'textAlign' : 'center'}),
+                html.Div([#Internal Row
+                    html.Div([
+                        dcc.Graph('biz-map')
+                    ],
+                        className='col-8'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 

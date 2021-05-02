@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from dash.dependencies import Input, Output, State
 from app import app
-from data import df_revenue, sources, df_rev
+from data import df_revenue, sources, df_rev, df_biz
 from dotenv import load_dotenv
 import plotly.graph_objs as go
 from apps.revenue import month_values
@@ -15,6 +15,77 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
+#########################################################
+#Business Callbacks
+#########################################################
+
+@app.callback(
+    Output('biz-map', 'figure'),
+    Input('categories', 'value'))
+def update_biz_map(selected_values):
+    # print(df_biz)
+    # print(df_biz.columns)
+    # print(df_biz['License_No'])
+    df1 = pd.DataFrame(df_biz.loc[df_biz['Category'] == selected_values])
+   
+    if selected_values == 'all':
+        filtered_df = df_biz
+        data = [dict(
+            lat = df_biz['lat'],
+            lon = df_biz['long'],
+            text = text,
+            hoverinfo = 'text',
+            type = 'scattermapbox',
+            customdata = df_biz['uid'],
+            marker = dict(size=10,color=df_biz['color'],opacity=.6)
+        )]
+    else: 
+        filtered_df = df1
+        data = [dict(
+            lat = filtered_df['lat'],
+            lon = filtered_df['long'],
+            text = text,
+            hoverinfo = 'text',
+            type = 'scattermapbox',
+            customdata = df1['uid'],
+            marker = dict(size=7,color=df1['color'],opacity=.6)
+        )]
+
+    def fill_color():
+        for k in range(len(sources)):
+            sources[k]['features'][0]['properties']['COLOR'] = 'white'                 
+    fill_color()
+
+    layers=[dict(sourcetype = 'json',
+        source =sources[k],
+        below="water", 
+        type = 'fill',
+        color = sources[k]['features'][0]['properties']['COLOR'],
+        opacity = 0.5
+        ) for k in range(len(sources))]
+    
+    layout = dict(
+            mapbox = dict(
+                accesstoken = os.environ.get("mapbox_token"),
+                center = dict(lat=39, lon=-105.5),
+                # zoom = 5.6,
+                zoom = 6,
+                style = 'light',
+                layers = layers
+            ),
+            hovermode = 'closest',
+            height = 500,
+            margin = dict(r=0, l=0, t=0, b=0),
+            clickmode = 'event+select'
+        )  
+  
+    fig = dict(data=data, layout=layout)
+    return fig
+
+######################################################
+#REVENUE CALLBACKS
+######################################################
+
 
 @app.callback(
      Output('revenue-map', 'figure'),
