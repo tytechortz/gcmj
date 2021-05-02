@@ -47,7 +47,8 @@ def pcrev_App():
                 className = 'col-1', #Blank column
             ),
             html.Div([ #External 10-column
-                html.H4(children='Per Capita Revenue by County')
+                html.H4(children='Per Capita Revenue by County',
+                        style={'text-align': 'center'}),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
