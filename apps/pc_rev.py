@@ -49,6 +49,20 @@ def pcrev_App():
             html.Div([ #External 10-column
                 html.H4(children='Per Capita Revenue by County',
                         style={'text-align': 'center'}),
+                html.Div([ #Internal Row
+                    html.Div([
+                        dcc.Graph('pcrev-map')
+                    ],  
+                        className='col-8'
+                    ),
+                    html.Div([
+                        dcc.Markdown('''Click on shaded counties and use year slider to see annual county per capita revenue data and population and projected population growth.  Green counties have at least one form of legalized cannabis,green circles show relative cannabis per capita revenue for selected year.''')
+                    ],
+                        className='col-4'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
