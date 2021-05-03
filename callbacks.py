@@ -380,7 +380,7 @@ def display_cnty_pop(clickData, selected_year):
         layout={
             'yaxis': {'title': 'Per Cap Revenue'},
             'yaxis2': {'title': 'Population', 'overlaying': 'y', 'side': 'right'},
-            'height': 450,
+            'height': 350,
         }
     )
     
