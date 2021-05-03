@@ -17,5 +17,14 @@
     margin: 5px;
     padding: 15px;
     position: relative;
-    box-shadow: 2px 2px 2px lightgreen;
+    box-shadow: 2px 2px 2px rgb(255, 255, 255);
+  }
+
+  .pretty_container1 {
+    border-radius: 5px;
+    background-color: rgb(44, 158, 15);
+    /* margin: 5px; */
+    /* padding: 15px; */
+    position: relative;
+    box-shadow: 3px 3px 3px rgb(255, 255, 255);
   }

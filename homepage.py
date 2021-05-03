@@ -298,11 +298,6 @@ def get_emptyrow(h='15px'):
 
     return emptyrow
 
-
-# url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv"
-# dataset2 = pd.read_csv(url)
-# print(dataset2)
-
 df = df_pc
 
 # df = df.fillna(0)
@@ -329,8 +324,8 @@ df['cum_pct'] = df.apply(lambda x: (x['cum_sum'] / x['totalpopulation']), axis=1
 df = df.fillna(0)
 dataset = df
 
-with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
-    print(dataset)
+# with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+#     print(dataset)
 
 years = ["2014", "2015", "2016", "2017", "2018", "2019", "2020"]
 
