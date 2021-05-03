@@ -48,6 +48,21 @@ def plrev_App():
             html.Div([ #External 10-column
                 html.H4(children='Per License Revenue by County',
                 style={'color': 'white', 'text-align': 'center'}),
+                html.Div([ #Internal Row
+                    html.Div([
+                        dcc.Graph('pcrev-map')
+                    ],  
+                        className='col-8'
+                    ),
+                    html.Div([
+                        dcc.Markdown('''Click on green-shaded counties to show revenue, license count, revenue per license, county ranking, and revenue change from 2019 to 2020. Counties are shaded to indicate realative revenue per license, with darker shades representing higher values. 2019 is the most recent year for license information.''',
+                        style={'color': 'white'})
+                    ],
+                        className='col-4'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
