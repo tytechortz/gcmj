@@ -17,6 +17,119 @@ app.layout = html.Div([
 ])
 
 #########################################################
+#PL REV Callbacks
+#########################################################
+
+@app.callback(
+     Output('plrev-map', 'figure'),
+     Input('pl-data', 'children'))         
+def update_lic_map(data):
+    
+    df_year = df_pc.loc[df_pc['year'] == 2019]
+    df_smr = pd.DataFrame({'county': df_year['county'], 'year': df_year.year, 'revenue per cap.': df_year.pc_rev,'CENT_LAT':df_year.CENT_LAT,
+                         'CENT_LON':df_year.CENT_LONG, 'marker_size':.5})
+
+    df_smr_filtered = df_smr.loc[df_year['color'] == 'red']
+    
+    layers=[dict(sourcetype = 'json',
+        source =sources[k],
+        below="water", 
+        type = 'fill',
+        color = sources[k]['features'][0]['properties']['COLOR'],
+        opacity = 0.5
+        ) for k in range(len(sources))]
+    data = [dict(
+        lat = df_smr['CENT_LAT'],
+        lon = df_smr['CENT_LON'],
+        text = df_smr['county'],
+        hoverinfo = 'text',
+        type = 'scattermapbox',
+        customdata = df_smr['county'],
+        marker = dict(size=df_smr['marker_size'],color='forestgreen',opacity=.5),
+        )]
+    layout = dict(
+            mapbox = dict(
+                accesstoken = os.environ.get("mapbox_token"),
+                center = dict(lat=39.05, lon=-105.5),
+                zoom = 5.85,
+                style = 'light',
+                layers = layers
+            ),
+            hovermode = 'closest',
+            height = 450,
+            margin = dict(r=0, l=0, t=0, b=0)
+            )
+    fig = dict(data=data, layout=layout)
+    return fig
+
+@app.callback(
+    Output('pl-data', 'children'),
+    Input('pl-data', 'children'))
+def pl_rev_data(value):
+    df_year = df_pc.loc[df_pc['year'] == 2019]
+    # print(df_year)
+    # df_rank = df.year.sort_values('tot_sales')
+    # print(df_rank)
+    df_cbc = df_biz.groupby(['County'], as_index=False)['License_No'].count()
+    df_cbc = df_cbc.rename(columns={'License_No':'lic_count'})
+    df_combo = pd.merge(df_year, df_cbc, how='left', left_on=['county'], right_on=['County'])
+    df_combo['rpl'] = df_combo['tot_sales'] / df_combo['lic_count']
+    df_combo.fillna(0, inplace=True)
+    # print(df_combo)
+    rev_max = df_combo['rpl'].max()
+    rev_min = 0
+
+    def get_color(x):
+        if x == 0:
+            return 'white'
+        elif 0 < x <= 250000 :
+            return 'greenyellow'
+        elif 250000 < x <= 500000:
+            return 'lightgreen'
+        elif 500000 < x <= 1000000:
+            return 'limegreen'
+        elif 1000000 < x <= 1500000:
+            return 'forestgreen'
+        else:
+            return 'darkgreen'
+
+    df_combo['color'] = df_combo['rpl'].map(get_color)
+    pd.set_option('display.max_rows', None)
+    # print(df_combo)
+
+    df_white_counties = df_combo.loc[df_combo['color'] == 'white']
+    white_counties = df_white_counties['county'].unique().tolist()
+    df_gy_counties = df_combo.loc[df_combo['color'] == 'greenyellow']
+    pg_counties = df_gy_counties['county'].unique().tolist()
+    df_lg_counties = df_combo.loc[df_combo['color'] == 'lightgreen']
+    lg_counties = df_lg_counties['county'].unique().tolist()
+    df_lime_counties = df_combo.loc[df_combo['color'] == 'limegreen']
+    lime_counties = df_lime_counties['county'].unique().tolist()
+    df_forest_counties = df_combo.loc[df_combo['color'] == 'forestgreen']
+    forest_counties = df_forest_counties['county'].unique().tolist()
+    df_dark_counties = df_combo.loc[df_combo['color'] == 'darkgreen']
+    dark_counties = df_dark_counties['county'].unique().tolist()
+    # print(lg_counties)
+
+    def fill_color():
+        for k in range(len(sources)):
+            if sources[k]['features'][0]['properties']['COUNTY'] in white_counties:
+                sources[k]['features'][0]['properties']['COLOR'] = 'white'
+            elif sources[k]['features'][0]['properties']['COUNTY'] in pg_counties:
+                sources[k]['features'][0]['properties']['COLOR'] = 'greenyellow'
+            elif sources[k]['features'][0]['properties']['COUNTY'] in lg_counties:
+                sources[k]['features'][0]['properties']['COLOR'] = 'lightgreen'
+            elif sources[k]['features'][0]['properties']['COUNTY'] in lime_counties:
+                sources[k]['features'][0]['properties']['COLOR'] = 'limegreen'
+            elif sources[k]['features'][0]['properties']['COUNTY'] in forest_counties:
+                sources[k]['features'][0]['properties']['COLOR'] = 'forestgreen'  
+            else:
+                sources[k]['features'][0]['properties']['COLOR'] = 'darkgreen'              
+    fill_color()
+
+    return df_combo.to_json()
+
+#########################################################
 #PC REV Callbacks
 #########################################################
 

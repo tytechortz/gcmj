@@ -50,7 +50,7 @@ def plrev_App():
                 style={'color': 'white', 'text-align': 'center'}),
                 html.Div([ #Internal Row
                     html.Div([
-                        dcc.Graph('pcrev-map')
+                        dcc.Graph('plrev-map')
                     ],  
                         className='col-8'
                     ),
@@ -76,6 +76,7 @@ def plrev_App():
         style=externalgraph_rowstyling, # External row
         ),
         get_emptyrow(),
+        html.Div(id='pl-data', style={'display': 'none'}),
     ])
 
 
