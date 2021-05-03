@@ -411,12 +411,12 @@ def display_per_cap_info(clickData, year):
     rev_start_year = df_rev['year'].iloc[0]
     # print(rev_start_year)
     df_pcrev = df_pc[df_pc['year'] == 2020]
-    print(df_pcrev)
+    # print(df_pcrev)
     df_cnty_pc_rev = df_pcrev[df_pcrev['county'] == county]
-    print(df_cnty_pc_rev)
+    # print(df_cnty_pc_rev)
     
     pcrev = df_cnty_pc_rev.iloc[0]['pc_rev']
-    print(pcrev)
+    # print(pcrev)
     df_per_cap_rank = df_pcrev.sort_values(by=['pc_rev'], ascending=False)
     df_per_cap_rank.reset_index(inplace=True)
     # print(df_per_cap_rank)
@@ -465,7 +465,7 @@ def display_per_cap_info(clickData, year):
                 html.Div([
                     html.Div([
                         html.Div([
-                            html.H6('Data for {} County'.format(county), style={'text-align': 'center'}),
+                            html.H6('Data for {} County'.format(county), style={'text-align': 'center','color': 'white'}),
                         ],
                             className='col-12'
                         ),
@@ -474,12 +474,12 @@ def display_per_cap_info(clickData, year):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Revenue Change {}-{}'.format(rev_start_year, rev_year2)),
+                            html.H6('Revenue Change {}-{}'.format(rev_start_year, rev_year2),style={'color': 'white'}),
                         ],
                             className='col-10'
                         ),
                         html.Div([
-                            html.H6('{:.0%}'.format(change), style={'text-align': 'right'}),
+                            html.H6('{:.0%}'.format(change), style={'text-align': 'right', 'color':'white'}),
                         ],
                             className='col-2'
                         ),
@@ -488,12 +488,12 @@ def display_per_cap_info(clickData, year):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Pop. Change {}-{}'.format(year1, year2)),
+                            html.H6('Pop. Change {}-{}'.format(year1, year2),style={'color': 'white'}),
                         ],
                             className='col-10'
                         ),
                         html.Div([
-                            html.H6('{:.0%}'.format(pop_change), style={'text-align': 'right'}),
+                            html.H6('{:.0%}'.format(pop_change), style={'text-align': 'right', 'color':'white'}),
                         ],
                             className='col-2'
                         ),
@@ -502,12 +502,12 @@ def display_per_cap_info(clickData, year):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Per Capita Revenue in 2020', style={'text-align': 'left'}),
+                            html.H6('Per Capita Revenue in 2020', style={'text-align': 'left', 'color':'white'}),
                         ],
                             className='col-10'
                         ),
                         html.Div([
-                            html.H6('${:.0f}'.format(pcrev), style={'text-align': 'right'}),
+                            html.H6('${:.0f}'.format(pcrev), style={'text-align': 'right', 'color':'white'}),
                         ],
                             className='col-2'
                         ),
@@ -516,12 +516,12 @@ def display_per_cap_info(clickData, year):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('2020 Per Capita Revenue Rank', style={'text-align': 'left'}),
+                            html.H6('2020 Per Capita Revenue Rank', style={'text-align': 'left', 'color':'white'}),
                         ],
                             className='col-10'
                         ),
                         html.Div([
-                            html.H6('{}'.format(pc_rev_rank_2020), style={'text-align': 'right'}),
+                            html.H6('{}'.format(pc_rev_rank_2020), style={'text-align': 'right', 'color':'white'}),
                         ],
                             className='col-2'
                         ),
@@ -530,12 +530,12 @@ def display_per_cap_info(clickData, year):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Proj. Pop. Growth Rank'),
+                            html.H6('Proj. Pop. Growth Rank',style={'color': 'white'}),
                         ],
                             className='col-10'
                         ),
                         html.Div([
-                            html.H6('{:,}'.format(pop_change_rank), style={'text-align': 'right'}),
+                            html.H6('{:,}'.format(pop_change_rank), style={'text-align': 'right', 'color':'white'}),
                         ],
                             className='col-2'
                         ),
