@@ -395,6 +395,180 @@ def display_cnty_pop(clickData, selected_year):
    
     return fig
 
+@app.callback(
+     Output('pc-info', 'children'),
+     [Input('pcrev-map', 'clickData'),
+     Input('year2', 'value')])
+def display_per_cap_info(clickData, year):
+    county = clickData['points'][-1]['text']
+    year1 = year[0]
+    year2 = year[1]
+    df_rev = df_revenue[df_revenue['county'] == county]
+    df_rev = df_rev[df_rev['year'] < 2021]
+    # print(df_rev)
+    df_rev = df_rev[df_rev['tot_sales'] != 0]
+    # print(df_rev)
+    rev_start_year = df_rev['year'].iloc[0]
+    # print(rev_start_year)
+    df_pcrev = df_pc[df_pc['year'] == 2020]
+    print(df_pcrev)
+    df_cnty_pc_rev = df_pcrev[df_pcrev['county'] == county]
+    print(df_cnty_pc_rev)
+    
+    pcrev = df_cnty_pc_rev.iloc[0]['pc_rev']
+    print(pcrev)
+    df_per_cap_rank = df_pcrev.sort_values(by=['pc_rev'], ascending=False)
+    df_per_cap_rank.reset_index(inplace=True)
+    # print(df_per_cap_rank)
+    pc_rev_rank_2020 = df_per_cap_rank[df_per_cap_rank['county'] == county].index[0] + 1
+    # print(pc_rev_rank_2020)
+
+    df_county_pop = df_pop[df_pop['county'] == county]
+    df_county_pop = df_county_pop[(df_county_pop['year'] >= year1) & (df_county_pop['year'] <= year2)]
+    # print(df_county_pop)
+    pop1 = df_county_pop['totalpopulation'].iloc[0]
+    pop2 = df_county_pop['totalpopulation'].iloc[-1]
+    pop_change = (pop2 - pop1) / pop1
+    # print(pop_change)
+    # print(df_pop)
+    df_2020_pop = df_pop[df_pop['year'] == 2020]
+    df_2020_pop.rename(columns={'totalpopulation':'2020_pop'}, inplace=True)
+    df_2050_pop = df_pop[df_pop['year'] == 2050]
+    df_2050_pop.rename(columns = {'totalpopulation':'2050_pop'}, inplace=True)
+    # print(df_2050_pop)
+    df_pop_change = pd.merge(df_2020_pop, df_2050_pop, how='left', left_on='county', right_on='county')
+    df_pop_change['pop_change'] = df_pop_change['2050_pop'] - df_pop_change['2020_pop']
+    # print(df_pop_change)
+    df_pop_change_rank = df_pop_change.sort_values(by=['pop_change'], ascending=False)
+    df_pop_change_rank.reset_index(inplace=True)
+    pop_change_rank = df_pop_change_rank[df_pop_change_rank['county'] == county].index[0] + 1
+
+
+    df1 = df_rev[df_rev['year'] == rev_start_year]
+    # df2 = df_rev['tot_sales'].iloc[-1]
+    # print(df1)
+    # print(df2)
+    # df2 = df_rev[df_rev['year'] == year2]
+    rev1 = df1['tot_sales'].iloc[0]
+    rev2 = df_rev['tot_sales'].iloc[-1]
+    rev_year2 = df_rev['year'].iloc[-1]
+    # rev2 = df2['tot_sales'].iloc[0]
+    # print(rev1)
+    # print(rev2)
+    change = (rev2 - rev1) / rev1
+    # print(change)
+
+
+    return html.Div([
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.Div([
+                        html.Div([
+                            html.H6('Data for {} County'.format(county), style={'text-align': 'center'}),
+                        ],
+                            className='twelve columns'
+                        ),
+                    ],
+                        className=('row')
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Revenue Change {}-{}'.format(rev_start_year, rev_year2)),
+                        ],
+                            className='nine columns'
+                        ),
+                        html.Div([
+                            html.H6('{:.0%}'.format(change), style={'text-align': 'right'}),
+                        ],
+                            className='three columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Pop. Change {}-{}'.format(year1, year2)),
+                        ],
+                            className='nine columns'
+                        ),
+                        html.Div([
+                            html.H6('{:.0%}'.format(pop_change), style={'text-align': 'right'}),
+                        ],
+                            className='three columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Per Capita Revenue in 2020', style={'text-align': 'left'}),
+                        ],
+                            className='nine columns'
+                        ),
+                        html.Div([
+                            html.H6('${:.0f}'.format(pcrev), style={'text-align': 'right'}),
+                        ],
+                            className='three columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('2020 Per Capita Revenue Rank', style={'text-align': 'left'}),
+                        ],
+                            className='nine columns'
+                        ),
+                        html.Div([
+                            html.H6('{}'.format(pc_rev_rank_2020), style={'text-align': 'right'}),
+                        ],
+                            className='three columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Proj. Pop. Growth Rank'),
+                        ],
+                            className='nine columns'
+                        ),
+                        html.Div([
+                            html.H6('{:,}'.format(pop_change_rank), style={'text-align': 'right'}),
+                        ],
+                            className='three columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+        #             html.Div([
+        #                 html.Div([
+        #                     html.H6('Revenue Change 2019 to 2020'),
+        #                 ],
+        #                     className='six columns'
+        #                 ),
+        #                 html.Div([
+        #                     html.H6('{:.0%}'.format(rev_change), style={'text-align': 'right'}),
+        #                 ],
+        #                     className='six columns'
+        #                 ),
+                    # ],
+                    #     className='row'
+                    # ),
+                ],
+                    className='round1'
+                ),
+            ],
+                className='pretty_container'
+            ),
+        ],
+            className='twelve columns'
+        ),
+    ],
+        className='row'
+    ),
+
 #########################################################
 #Business Callbacks
 #########################################################

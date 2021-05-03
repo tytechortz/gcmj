@@ -103,9 +103,15 @@ def pcrev_App():
                     ],
                         className='col-7'
                     ),
+                    html.Div([
+                        html.Div(id='pc-info')
+                    ],
+                        className='col-5'
+                    ),
                 ],
                     className='row'
                 ),
+                get_emptyrow(),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
