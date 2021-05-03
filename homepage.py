@@ -262,7 +262,7 @@ def get_navbar(p = 'homepage'):
         html.Div([
             dcc.Link(
                 html.H6(children='Per License Rev.'),
-                href='/apps/biz'
+                href='/apps/pl_rev'
             )
         ],
             className='col-2',
