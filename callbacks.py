@@ -165,7 +165,7 @@ def display_per_lic_rev(clickData, pl_data):
                 html.Div([
                     html.Div([
                         html.Div([
-                            html.H6('{} COUNTY'.format(county), style={'text-align': 'center'}),
+                            html.H6('{} COUNTY'.format(county), style={'text-align': 'center', 'color': 'white'}),
                         ],
                             className='col-12'
                         ),
@@ -174,26 +174,13 @@ def display_per_lic_rev(clickData, pl_data):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Total Revenue in 2019'),
+                            html.H6('Total Revenue in 2019',
+                            style={'color': 'white'}),
                         ],
                             className='col-6'
                         ),
                         html.Div([
-                            html.H6('${:,}'.format(total_rev_2019), style={'text-align': 'right'}),
-                        ],
-                            className='col-6'
-                        ),
-                    ],
-                        className='row'
-                    ),
-                    html.Div([
-                        html.Div([
-                            html.H6('2019 License Count'),
-                        ],
-                            className='col-6'
-                        ),
-                        html.Div([
-                            html.H6('{}'.format(biz_count), style={'text-align': 'right'}),
+                            html.H6('${:,}'.format(total_rev_2019), style={'text-align': 'right', 'color': 'white'}),
                         ],
                             className='col-6'
                         ),
@@ -202,26 +189,13 @@ def display_per_lic_rev(clickData, pl_data):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Revenue Per License', style={'text-align': 'left'}),
+                            html.H6('2019 License Count',
+                            style={'color': 'white'}),
                         ],
                             className='col-6'
                         ),
                         html.Div([
-                            html.H6('${:,}'.format(rpl_2019), style={'text-align': 'right'}),
-                        ],
-                            className='col-6'
-                        ),
-                    ],
-                        className='row'
-                    ),
-                    html.Div([
-                        html.Div([
-                            html.H6('Revenue Per License Rank', style={'text-align': 'left'}),
-                        ],
-                            className='col-6'
-                        ),
-                        html.Div([
-                            html.H6('{}'.format(rpl_rank_2019), style={'text-align': 'right'}),
+                            html.H6('{}'.format(biz_count), style={'text-align': 'right','color': 'white'}),
                         ],
                             className='col-6'
                         ),
@@ -230,12 +204,12 @@ def display_per_lic_rev(clickData, pl_data):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Total Revenue in 2020'),
+                            html.H6('Revenue Per License', style={'text-align': 'left','color': 'white'}),
                         ],
                             className='col-6'
                         ),
                         html.Div([
-                            html.H6('${:,}'.format(total_rev_2020), style={'text-align': 'right'}),
+                            html.H6('${:,}'.format(rpl_2019), style={'text-align': 'right','color': 'white'}),
                         ],
                             className='col-6'
                         ),
@@ -244,12 +218,42 @@ def display_per_lic_rev(clickData, pl_data):
                     ),
                     html.Div([
                         html.Div([
-                            html.H6('Revenue Change 2019 to 2020'),
+                            html.H6('Revenue Per License Rank', style={'text-align': 'left','color': 'white'}),
+                        ],
+                            className='col-6'
+                        ),
+                        html.Div([
+                            html.H6('{}'.format(rpl_rank_2019), style={'text-align': 'right','color': 'white'}),
+                        ],
+                            className='col-6'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Total Revenue in 2020',
+                            style={'color': 'white'}),
+                        ],
+                            className='col-6'
+                        ),
+                        html.Div([
+                            html.H6('${:,}'.format(total_rev_2020), style={'text-align': 'right','color': 'white'}),
+                        ],
+                            className='col-6'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Revenue Change 2019 to 2020',
+                            style={'color': 'white'}),
                         ],
                             className='col-7'
                         ),
                         html.Div([
-                            html.H6('{:.0%}'.format(rev_change), style={'text-align': 'right'}),
+                            html.H6('{:.0%}'.format(rev_change), style={'text-align': 'right','color': 'white'}),
                         ],
                             className='col-5'
                         ),
