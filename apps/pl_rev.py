@@ -46,7 +46,8 @@ def plrev_App():
                 className = 'col-1', #Blank column
             ),
             html.Div([ #External 10-column
-                html.H4(children='Per License Revenue by County')
+                html.H4(children='Per License Revenue by County',
+                style={'color': 'white', 'text-align': 'center'}),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
