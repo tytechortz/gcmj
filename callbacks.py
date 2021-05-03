@@ -129,6 +129,146 @@ def pl_rev_data(value):
 
     return df_combo.to_json()
 
+@app.callback(
+     Output('pl-info', 'children'),
+     [Input('plrev-map', 'clickData'),
+     Input('pl-data', 'children')])
+def display_per_lic_rev(clickData, pl_data):
+    df = pd.read_json(pl_data)
+    county = clickData['points'][-1]['text']
+    
+    df_rank = df.sort_values(by=['rpl'], ascending=False)
+    df_rank.reset_index(inplace=True)
+    
+    rpl_rank_2019 = df_rank[df_rank['county'] == county].index[0] + 1
+   
+    df_rev = df_revenue[df_revenue['county'] == county]
+    df_rev = df_rev[df_rev['year'] < 2021]
+   
+    df_pcrev = df_pc[df_pc['county'] == county]
+    
+    df_bpc = df_biz[df_biz['County'] == county]
+    
+    biz_count  = len(df_bpc.index)
+    county_2019 = df_pcrev.loc[df_pcrev['year'] == 2019]
+ 
+    total_rev_2019 = int(county_2019['tot_sales'])
+    rpl_2019 = int(total_rev_2019 / biz_count)
+   
+    county_2020 = df_rev.loc[df_rev['year'] == 2020]
+    total_rev_2020 = int(county_2020['tot_sales'])
+    rev_change = (total_rev_2020 - total_rev_2019) / total_rev_2019
+
+    return html.Div([
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.Div([
+                        html.Div([
+                            html.H6('{} COUNTY'.format(county), style={'text-align': 'center'}),
+                        ],
+                            className='twelve columns'
+                        ),
+                    ],
+                        className=('row')
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Total Revenue in 2019'),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('${:,}'.format(total_rev_2019), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('2019 License Count'),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('{}'.format(biz_count), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Revenue Per License', style={'text-align': 'left'}),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('${:,}'.format(rpl_2019), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Revenue Per License Rank', style={'text-align': 'left'}),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('{}'.format(rpl_rank_2019), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Total Revenue in 2020'),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('${:,}'.format(total_rev_2020), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                    html.Div([
+                        html.Div([
+                            html.H6('Revenue Change 2019 to 2020'),
+                        ],
+                            className='six columns'
+                        ),
+                        html.Div([
+                            html.H6('{:.0%}'.format(rev_change), style={'text-align': 'right'}),
+                        ],
+                            className='six columns'
+                        ),
+                    ],
+                        className='row'
+                    ),
+                ],
+                    className='round1'
+                ),
+            ],
+                className='pretty_container'
+            ),
+        ],
+            className='twelve columns'
+        ),
+    ],
+        className='row'
+    ),
+
 #########################################################
 #PC REV Callbacks
 #########################################################
