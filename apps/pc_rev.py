@@ -64,6 +64,23 @@ def pcrev_App():
                 ],
                     className='row'
                 ),
+                get_emptyrow(),
+                html.Div([ # Internal row
+                    html.Div([
+                        dcc.Slider(
+                            id='year',
+                            min=2014,
+                            max=2020,
+                            step=1,
+                            marks={x: '{}'.format(x) for x in range(2014, 2021)},
+                            value=2014,
+                        ),
+                    ],
+                        className='col-8'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 

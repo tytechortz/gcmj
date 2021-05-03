@@ -1,0 +1,13 @@
+.rc-slider-mark-text {
+    color: white
+}
+
+.rc-slider-mark-text-active {
+    color: rgb(9, 212, 53)
+}
+
+.rc-slider-track {
+    background-color: rgb(9, 212, 53)
+
+}
+

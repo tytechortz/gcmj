@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from dash.dependencies import Input, Output, State
 from app import app
-from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df_bidness
+from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df_bidness, df_pc
 from dotenv import load_dotenv
 import plotly.graph_objs as go
 from apps.revenue import month_values
