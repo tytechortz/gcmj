@@ -167,7 +167,7 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('{} COUNTY'.format(county), style={'text-align': 'center'}),
                         ],
-                            className='twelve columns'
+                            className='col-12'
                         ),
                     ],
                         className=('row')
@@ -176,12 +176,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('Total Revenue in 2019'),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                         html.Div([
                             html.H6('${:,}'.format(total_rev_2019), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                     ],
                         className='row'
@@ -190,12 +190,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('2019 License Count'),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                         html.Div([
                             html.H6('{}'.format(biz_count), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                     ],
                         className='row'
@@ -204,12 +204,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('Revenue Per License', style={'text-align': 'left'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                         html.Div([
                             html.H6('${:,}'.format(rpl_2019), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                     ],
                         className='row'
@@ -218,12 +218,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('Revenue Per License Rank', style={'text-align': 'left'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                         html.Div([
                             html.H6('{}'.format(rpl_rank_2019), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                     ],
                         className='row'
@@ -232,12 +232,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('Total Revenue in 2020'),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                         html.Div([
                             html.H6('${:,}'.format(total_rev_2020), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-6'
                         ),
                     ],
                         className='row'
@@ -246,12 +246,12 @@ def display_per_lic_rev(clickData, pl_data):
                         html.Div([
                             html.H6('Revenue Change 2019 to 2020'),
                         ],
-                            className='six columns'
+                            className='col-7'
                         ),
                         html.Div([
                             html.H6('{:.0%}'.format(rev_change), style={'text-align': 'right'}),
                         ],
-                            className='six columns'
+                            className='col-5'
                         ),
                     ],
                         className='row'
@@ -263,7 +263,7 @@ def display_per_lic_rev(clickData, pl_data):
                 className='pretty_container'
             ),
         ],
-            className='twelve columns'
+            className='col-12'
         ),
     ],
         className='row'
