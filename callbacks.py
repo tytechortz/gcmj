@@ -476,12 +476,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Revenue Change {}-{}'.format(rev_start_year, rev_year2),style={'color': 'white'}),
                         ],
-                            className='col-10'
+                            className='col-9'
                         ),
                         html.Div([
                             html.H6('{:.0%}'.format(change), style={'text-align': 'right', 'color':'white'}),
                         ],
-                            className='col-2'
+                            className='col-3'
                         ),
                     ],
                         className='row'
@@ -504,12 +504,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Per Capita Revenue in 2020', style={'text-align': 'left', 'color':'white'}),
                         ],
-                            className='col-10'
+                            className='col-9'
                         ),
                         html.Div([
                             html.H6('${:.0f}'.format(pcrev), style={'text-align': 'right', 'color':'white'}),
                         ],
-                            className='col-2'
+                            className='col-3'
                         ),
                     ],
                         className='row'

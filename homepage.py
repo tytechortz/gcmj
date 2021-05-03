@@ -101,7 +101,7 @@ def get_navbar(p = 'homepage'):
         html.Div([], className='col-2'),
         html.Div([
             dcc.Link(
-                html.H6(children='Home-rev'),
+                html.H6(children='Home'),
                 href='/homepage'
             )
         ],
@@ -145,7 +145,7 @@ def get_navbar(p = 'homepage'):
         html.Div([], className='col-2'),
         html.Div([
             dcc.Link(
-                html.H6(children='Home-pc'),
+                html.H6(children='Home'),
                 href='/homepage'
             )
         ],
@@ -234,7 +234,7 @@ def get_navbar(p = 'homepage'):
         html.Div([], className='col-2'),
         html.Div([
             dcc.Link(
-                html.H6(children='Home-pl'),
+                html.H6(children='Home'),
                 href='/homepage'
             )
         ],
