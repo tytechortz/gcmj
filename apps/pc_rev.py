@@ -97,6 +97,15 @@ def pcrev_App():
                 ],
                     className='row'
                 ),
+                html.Div([
+                    html.Div([
+                        dcc.Graph(id='per-cap-rev-bar')
+                    ],
+                        className='col-7'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 

@@ -4,7 +4,7 @@ import pandas as pd
 import os
 from dash.dependencies import Input, Output, State
 from app import app
-from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df_bidness, df_pc
+from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df_bidness, df_pc, df_pop
 from dotenv import load_dotenv
 import plotly.graph_objs as go
 from apps.revenue import month_values
@@ -329,6 +329,70 @@ def update_rev_map(selected_year):
             margin = dict(r=0, l=0, t=0, b=0)
             )
     fig = dict(data=data, layout=layout)
+    return fig
+
+@app.callback(
+     Output('per-cap-rev-bar', 'figure'),
+     [Input('pcrev-map', 'clickData'),
+     Input('year2', 'value')])
+def display_cnty_pop(clickData, selected_year):
+    county = clickData['points'][-1]['text']
+    df_rev = df_revenue[df_revenue['county'] == county]
+    df_rev = df_rev[df_rev['year'] < 2021]
+    # print(df_pc)
+    df_pcrev = df_pc[df_pc['county'] == county]
+
+    df_county_pop = df_pop[df_pop['county'] == county]
+    df_county_pop = df_county_pop[(df_county_pop['year'] >= selected_year[0]) & (df_county_pop['year'] <= selected_year[1])]
+
+
+    fig = go.Figure(
+        data=[
+        #    go.Bar(
+        #         name='Annual Revenue',
+        #         x=df_rev['year'],
+        #         y=df_rev['tot_sales'],
+        #         yaxis='y',
+        #         # offsetgroup=1
+        #    ),
+            go.Scatter(
+                name='Population',
+                x=df_county_pop['year'],
+                y=df_county_pop['totalpopulation'],
+                yaxis='y2',
+                # offsetgroup=2
+            ),
+            go.Bar(
+                name='Per Cap Revenue',
+                x=df_pcrev['year'],
+                y=df_pcrev['pc_rev'],
+                yaxis='y',
+                # offsetgroup=1
+            ),
+        #    go.Bar(
+        #         name='Business Count',
+        #         x=df_biz_count['year'],
+        #         y=df_biz_count['licensee'],
+        #         yaxis='y2',
+        #         offsetgroup=2
+        #    ),
+        ],
+        layout={
+            'yaxis': {'title': 'Per Cap Revenue'},
+            'yaxis2': {'title': 'Population', 'overlaying': 'y', 'side': 'right'},
+            'height': 450,
+        }
+    )
+    
+    fig.update_layout(
+        barmode='group',
+        title={
+            'text':'{} COUNTY'.format(county),
+            'x':0.5,
+            'xanchor':'center'
+        }
+    )
+   
     return fig
 
 #########################################################
