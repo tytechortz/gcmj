@@ -467,7 +467,7 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Data for {} County'.format(county), style={'text-align': 'center'}),
                         ],
-                            className='twelve columns'
+                            className='col-12'
                         ),
                     ],
                         className=('row')
@@ -476,12 +476,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Revenue Change {}-{}'.format(rev_start_year, rev_year2)),
                         ],
-                            className='nine columns'
+                            className='col-10'
                         ),
                         html.Div([
                             html.H6('{:.0%}'.format(change), style={'text-align': 'right'}),
                         ],
-                            className='three columns'
+                            className='col-2'
                         ),
                     ],
                         className='row'
@@ -490,12 +490,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Pop. Change {}-{}'.format(year1, year2)),
                         ],
-                            className='nine columns'
+                            className='col-10'
                         ),
                         html.Div([
                             html.H6('{:.0%}'.format(pop_change), style={'text-align': 'right'}),
                         ],
-                            className='three columns'
+                            className='col-2'
                         ),
                     ],
                         className='row'
@@ -504,12 +504,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Per Capita Revenue in 2020', style={'text-align': 'left'}),
                         ],
-                            className='nine columns'
+                            className='col-10'
                         ),
                         html.Div([
                             html.H6('${:.0f}'.format(pcrev), style={'text-align': 'right'}),
                         ],
-                            className='three columns'
+                            className='col-2'
                         ),
                     ],
                         className='row'
@@ -518,12 +518,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('2020 Per Capita Revenue Rank', style={'text-align': 'left'}),
                         ],
-                            className='nine columns'
+                            className='col-10'
                         ),
                         html.Div([
                             html.H6('{}'.format(pc_rev_rank_2020), style={'text-align': 'right'}),
                         ],
-                            className='three columns'
+                            className='col-2'
                         ),
                     ],
                         className='row'
@@ -532,12 +532,12 @@ def display_per_cap_info(clickData, year):
                         html.Div([
                             html.H6('Proj. Pop. Growth Rank'),
                         ],
-                            className='nine columns'
+                            className='col-10'
                         ),
                         html.Div([
                             html.H6('{:,}'.format(pop_change_rank), style={'text-align': 'right'}),
                         ],
-                            className='three columns'
+                            className='col-2'
                         ),
                     ],
                         className='row'
@@ -563,7 +563,7 @@ def display_per_cap_info(clickData, year):
                 className='pretty_container'
             ),
         ],
-            className='twelve columns'
+            className='col-12'
         ),
     ],
         className='row'
