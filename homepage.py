@@ -473,6 +473,16 @@ def home_page_App():
                 ),
                 html.Div([
                     html.Div([
+                        dcc.Graph(id='hp-map')
+                    ],
+                        className='col-6'
+                    ),
+                ],
+                    className='row'
+                ),
+                get_emptyrow(),
+                html.Div([
+                    html.Div([
                     ],
                         className='col-3'
                     ),
