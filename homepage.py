@@ -461,11 +461,33 @@ def home_page_App():
                 className = 'col-1', # Blank 1 column
             ),
             html.Div([
-                html.H4(children='Cannabis Data',
-                        style={'color' : 'white', 'textAlign' : 'center'}),
                 html.Div([
-                    dcc.Graph(figure=fig)
-                ])
+                    html.Div([
+                        html.H4(children='Cannabis Data',
+                        style={'color' : 'white', 'text-align' : 'center'}),
+                    ],
+                        className='col-12'
+                    ),
+                ],
+                    className='row'
+                ),
+                html.Div([
+                    html.Div([
+                    ],
+                        className='col-3'
+                    ),
+                    html.Div([
+                        dcc.Graph(figure=fig)
+                    ],
+                        className='col-6'
+                    ),
+                    html.Div([
+                    ],
+                        className='col-3'
+                    ),
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column
