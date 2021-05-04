@@ -340,8 +340,8 @@ fig_dict = {
     "frames": []
 }
 
-fig_dict["layout"]["xaxis"] = {"range": [-200, 5000], "title": "PerCap Rev"}
-fig_dict["layout"]["yaxis"] = {"range": [-.15, .3], "title": "Tot. Rev."}
+fig_dict["layout"]["xaxis"] = {"range": [1, 4], 'type': 'log', "title": "PerCap Rev"}
+fig_dict["layout"]["yaxis"] = {"range": [-.1, .3], "title": "Tot. Rev."}
 fig_dict["layout"]["hovermode"] = "closest"
 fig_dict["layout"]["updatemenus"] = [
     {

@@ -776,19 +776,29 @@ def create_month_bar(clickData, month, crat, mo_yr):
         trace1 = [
             {'y': county_rev_month['tot_sales'], 'x': county_rev_month['month'], 'type': 'bar', 'name': 'month'}
         ]
+
+        return {
+            'data': trace1,
+            'layout': go.Layout(
+                height = 350,
+                title = 'ANNUAL {} COUNTY REVENUE'.format(clickData['points'][-1]['text']),
+                font = {'size': 8}
+            ),
+        }
+
     elif mo_yr == 'mo':
         trace1 = [
             {'y': crm['tot_sales'], 'x': crm['year'], 'type': 'bar', 'name': 'month'}
         ]
     
-    return {
-        'data': trace1,
-        'layout': go.Layout(
-            height = 350,
-            title = '{} COUNTY REVENUE FOR {}'.format(clickData['points'][-1]['text'], month_values[month]),
-            font = {'size': 8}
-        ),
-    }
+        return {
+            'data': trace1,
+            'layout': go.Layout(
+                height = 350,
+                title = '{} COUNTY REVENUE FOR {}'.format(clickData['points'][-1]['text'], month_values[month]),
+                font = {'size': 8}
+            ),
+        }
 
 
 @app.callback(
