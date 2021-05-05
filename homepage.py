@@ -470,11 +470,22 @@ def home_page_App():
                     ),
                 ],
                     className='row'
-                ),html.Div([
+                ),
+                html.Div([
                     html.Div([
                         dcc.Markdown('''Cool user story Bro. This That and the Other the things that we doo are amazing ''')
                     ],
                         className='col-6'
+                    ),
+                    html.Div([
+                        html.H6('Total Revenue Since 2014')
+                    ],
+                        className='col-3'
+                    ),
+                    html.Div([
+                        html.H6('Total Revenue Since 2014')
+                    ],
+                        className='col-3'
                     ),
                 ],
                     className='row'
