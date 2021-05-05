@@ -470,12 +470,20 @@ def home_page_App():
                     ),
                 ],
                     className='row'
+                ),html.Div([
+                    html.Div([
+                        dcc.Markdown('''Cool user story Bro. This That and the Other the things that we doo are amazing ''')
+                    ],
+                        className='col-6'
+                    ),
+                ],
+                    className='row'
                 ),
                 html.Div([
                     html.Div([
                         dcc.Graph(id='hp-map')
                     ],
-                        className='col-6'
+                        className='col-8'
                     ),
                 ],
                     className='row'
@@ -510,6 +518,7 @@ def home_page_App():
         className='row',
         style=externalgraph_rowstyling, # External row
         ),
+        html.Div(id='pl-data', style={'display': 'none'}),
     ])
 
 
