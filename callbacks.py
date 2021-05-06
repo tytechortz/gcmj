@@ -855,8 +855,19 @@ def tot_rev_timer(n):
     # new_revenue = int(this_year_seconds)
 
     return html.Div([
-        html.H6('Total Revenue Since 2014-${:,d}'.format(cash), style={'text-align': 'center'})
-    ])
+        html.Div([
+            html.H6('Total Revenue Since 2014', style={'text-align': 'right'})
+        ],
+            className='col-8'
+        ),
+        html.Div([
+            html.H6('${:,d}'.format(cash), style={'text-align': 'center'})
+        ],
+            className='col-4'
+        ),
+    ],
+        className='row'
+    ),
 
 
 @app.callback(

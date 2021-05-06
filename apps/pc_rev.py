@@ -88,7 +88,12 @@ def pcrev_App():
                             min=1990,
                             max=2050,
                             step=1,
-                            # options=[{'label':x, 'value':x} for x in range(2022, 2050)],
+                            marks={
+                                1990: '1990',
+                                2014: '2014',
+                                2020: '2020',
+                                2050: '2050'
+                            },
                             value=[2014,2020]
                         ),
                     ],

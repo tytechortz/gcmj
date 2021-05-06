@@ -504,16 +504,16 @@ def home_page_App():
                 html.Div([
                     html.Div([
                     ],
-                        className='col-3'
+                        className='col-2'
                     ),
                     html.Div([
                         dcc.Graph(figure=fig)
                     ],
-                        className='col-6'
+                        className='col-8'
                     ),
                     html.Div([
                     ],
-                        className='col-3'
+                        className='col-2'
                     ),
                 ],
                     className='row'
