@@ -40,7 +40,7 @@ def get_header():
 
         html.Div([
             html.H1(children='Colorado Cannabis',
-                    style = {'textAlign' : 'center'}
+                    style = {'textAlign' : 'center', 'color':'white'}
             )],
             className='col-12',
             style = {'padding-top' : '1%'}
@@ -474,7 +474,8 @@ def home_page_App():
                 ),
                 html.Div([
                     html.Div([
-                        dcc.Markdown('''Cool user story Bro. This That and the Other the things that we doo are amazing ''')
+                        dcc.Markdown('''Cool user story Bro. This That and the Other the things that we doo are amazing ''', 
+                        style={'color': 'white'})
                     ],
                         className='col-6'
                     ),
