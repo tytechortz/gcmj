@@ -9,6 +9,7 @@ from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df
 from dotenv import load_dotenv
 import plotly.graph_objs as go
 from apps.revenue import month_values
+import datetime
 
 load_dotenv()
 
@@ -842,14 +843,20 @@ def create_month_bar(clickData, crat):
     Output('tot-rev-led', 'children'),
     Input('interval-component', 'n_intervals'))
 def tot_rev_timer(n):
+    start = datetime.datetime(2021, 1, 1)
+    end = datetime.datetime.now()
+    per_sec = 79.48
+    previous_revenue = 9978794073
+    diff = (end - start)
+    seconds = int(diff.total_seconds())
+    cash = int((per_sec * seconds) + previous_revenue)
 
-    total_revenue = 10000000000
+    # print(type(this_year_seconds))
+    # new_revenue = int(this_year_seconds)
 
-    return daq.LEDDisplay(
-    label=' Total Revenue',
-    value='{}'.format(total_revenue),
-    color='blue'
-    ),
+    return html.Div([
+        html.H6('Total Revenue Since 2014-${:,d}'.format(cash), style={'text-align': 'center'})
+    ])
 
 
 @app.callback(
