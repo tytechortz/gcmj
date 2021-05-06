@@ -1,5 +1,6 @@
 import dash_html_components as html
 import dash_core_components as dcc
+import dash_daq as daq
 import pandas as pd
 import os
 from dash.dependencies import Input, Output, State
@@ -834,8 +835,22 @@ def create_month_bar(clickData, crat):
     }
 
 
-##################################################### HOMEPAGE CALLBACKS
-####################################################
+##################################################### 
+# HOMEPAGE CALLBACKS
+#####################################################
+@app.callback(
+    Output('tot-rev-led', 'children'),
+    Input('interval-component', 'n_intervals'))
+def tot_rev_timer(n):
+
+    total_revenue = 10000000000
+
+    return daq.LEDDisplay(
+    label=' Total Revenue',
+    value='{}'.format(total_revenue),
+    color='blue'
+    ),
+
 
 @app.callback(
      Output('hp-map', 'figure'),

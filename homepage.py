@@ -1,5 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
+
 import plotly.express as px
 import plotly.graph_objs as go
 import pandas as pd
@@ -478,15 +479,15 @@ def home_page_App():
                         className='col-6'
                     ),
                     html.Div([
-                        html.H6('Total Revenue Since 2014')
+                        html.Div(id='tot-rev-led')
                     ],
-                        className='col-3'
+                        className='col-6'
                     ),
-                    html.Div([
-                        html.H6('Total Revenue Since 2014')
-                    ],
-                        className='col-3'
-                    ),
+                    # html.Div([
+                    #     html.H6('Total Revenue Since 2014')
+                    # ],
+                    #     className='col-3'
+                    # ),
                 ],
                     className='row'
                 ),
@@ -529,6 +530,13 @@ def home_page_App():
         className='row',
         style=externalgraph_rowstyling, # External row
         ),
+        html.Div([
+            dcc.Interval(
+                id='interval-component',
+                interval=1000,
+                n_intervals=0
+            )
+        ]),
         html.Div(id='pl-data', style={'display': 'none'}),
     ])
 
