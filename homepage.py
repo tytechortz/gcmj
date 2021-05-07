@@ -9,7 +9,7 @@ import dash
 from datetime import datetime as dt
 from app import app
 import dash_bootstrap_components as dbc
-from data import df_revenue, df_pc
+from data import df_revenue, df_pc, df_rev
 
 
 app = dash.Dash(__name__)
@@ -344,6 +344,7 @@ fig_dict = {
 fig_dict["layout"]["xaxis"] = {"range": [1, 4], 'type': 'log', "title": "PerCap Rev"}
 fig_dict["layout"]["yaxis"] = {"range": [-.1, .3], "title": "Tot. Rev."}
 fig_dict["layout"]["hovermode"] = "closest"
+fig_dict['layout']['height'] = 500
 fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
@@ -445,7 +446,46 @@ fig_dict["layout"]["sliders"] = [sliders_dict]
 
 fig = go.Figure(fig_dict)
 
+##############################################################
+# ALL REVENUE SCATTER PLOT
+##############################################################
+df = df_rev
+df = df.drop(index=[8,87,134,166,249,339,378,487,517,1238,1173,1108,1043,978,913,720,655,590,5076])
+# print(df)
+# tot_rev = df.groupby(["year", "month"]).agg({'tot_sales':['sum']})
+# tot_rev = tot_rev.reset_index()
+# with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+#     print(df)
+df.index = pd.to_datetime(df['year'].astype(str) + df['month'].astype(str), format='%Y%m')
+print(df)
 
+df = df.groupby('year')['tot_sales'].sum()
+
+# df = df.resample("Y").sum()
+# tot_rev = df.groupby([tot_rev['date']])
+
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+    print(df)
+
+
+
+fig_tot_rev = go.Figure()
+
+fig_tot_rev.add_trace(go.Scatter(x=df.index, y=df,
+                    mode='lines+markers'))
+fig_tot_rev.update_layout(
+    height=250,
+    autosize=True,
+    paper_bgcolor='green',
+    margin=dict(
+        l=50,
+        r=0,
+        b=0,
+        t=0,
+        pad=4
+    )
+)
+    
 
 
     
@@ -464,7 +504,7 @@ def home_page_App():
             html.Div([
                 html.Div([
                     html.Div([
-                        html.H4(children='Cannabis Data',
+                        html.H4(children='Statewide Cannabis Data',
                         style={'color' : 'white', 'text-align' : 'center'}),
                     ],
                         className='col-12'
@@ -474,15 +514,28 @@ def home_page_App():
                 ),
                 html.Div([
                     html.Div([
-                        dcc.Markdown('''Cool user story Bro. This That and the Other the things that we doo are amazing ''', 
+                        dcc.Markdown('''The cannabis industry in Colorado has grown from $683 million in 2014 to over $2 billion in 2020, reaching the $10 billion total sales mark this year. This interactive app attempts to allow the user to look for trends in cannabis revenue data, and how those may relate to location, population or time of year in particular counties.''', 
                         style={'color': 'white'})
                     ],
-                        className='col-6'
+                        className='col-7'
                     ),
                     html.Div([
-                        html.Div(id='tot-rev-led')
+                        html.Div([
+                            html.Div(id='tot-rev-led')
+                        ],
+                            className='row'
+                        ),
+                        html.Div([
+                            html.Div([ #blank column
+                        ],
+                            className='col-1'
+                        ),
+                            dcc.Markdown('''This page displays general statewide cannabis data. Please use nav links to explore date further by county''')
+                        ],
+                            className='row'
+                        ),
                     ],
-                        className='col-6'
+                        className='col-5'
                     ),
                     # html.Div([
                     #     html.H6('Total Revenue Since 2014')
@@ -496,17 +549,22 @@ def home_page_App():
                     html.Div([
                         dcc.Graph(id='hp-map')
                     ],
-                        className='col-8'
+                        className='col-6'
+                    ),
+                    html.Div([
+                        dcc.Graph(figure=fig_tot_rev)
+                    ],
+                        className='col-6'
                     ),
                 ],
                     className='row'
                 ),
                 get_emptyrow(),
                 html.Div([
-                    html.Div([
-                    ],
-                        className='col-2'
-                    ),
+                    # html.Div([
+                    # ],
+                    #     className='col-2'
+                    # ),
                     html.Div([
                         dcc.Graph(figure=fig)
                     ],
@@ -519,6 +577,7 @@ def home_page_App():
                 ],
                     className='row'
                 ),
+                get_emptyrow(),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column
@@ -531,6 +590,7 @@ def home_page_App():
         className='row',
         style=externalgraph_rowstyling, # External row
         ),
+        
         html.Div([
             dcc.Interval(
                 id='interval-component',
