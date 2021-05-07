@@ -459,6 +459,28 @@ df = df.drop(index=[8,87,134,166,249,339,378,487,517,1238,1173,1108,1043,978,913
 df.index = pd.to_datetime(df['year'].astype(str) + df['month'].astype(str), format='%Y%m')
 
 print(df)
+df_new = df.loc['2021-01-01':]
+df_month = df.loc[:'2020-12-31']#.groupby('month')['tot_sales'].sum()
+df_month = df_month.groupby('month')['tot_sales'].sum()
+print(df_new)
+print(df_month)
+current_data_month = int(df_new['month'].iloc[-1])
+print(current_data_month)
+df_new_tot = df_new.groupby('month')['tot_sales'].sum()
+print(df_new_tot)
+df_ly = df.loc['2020-01-01':'2020-12-31'].groupby('month')['tot_sales'].sum()
+print(df_ly)
+last_year_tot = df_ly.sum()
+
+df_ly_td = df_ly.head(current_data_month)
+print(df_ly_td)
+ly_tot_td = df_ly_td.sum()
+ty_tot_td = df_new_tot.sum()
+print(ly_tot_td)
+print(ty_tot_td)
+print(last_year_tot)
+ty_proj_tot = (ty_tot_td / ly_tot_td) * last_year_tot
+print(ty_proj_tot)
 
 df = df.groupby('year')['tot_sales'].sum()
 df.drop(df.tail(1).index, inplace=True)
