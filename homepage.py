@@ -345,6 +345,9 @@ fig_dict["layout"]["xaxis"] = {"range": [1, 4], 'type': 'log', "title": "PerCap 
 fig_dict["layout"]["yaxis"] = {"range": [-.1, .3], "title": "Tot. Rev."}
 fig_dict["layout"]["hovermode"] = "closest"
 fig_dict['layout']['height'] = 500
+fig_dict['layout']['paper_bgcolor'] = 'green'
+# fig_dict['layout']['plot_bgcolor'] = 'lightgreen'
+fig_dict['layout']['font_color'] = 'white'
 fig_dict["layout"]["updatemenus"] = [
     {
         "buttons": [
@@ -498,6 +501,7 @@ fig_tot_rev.update_layout(
     height=250,
     autosize=True,
     paper_bgcolor='green',
+    plot_bgcolor='lightgreen',
     margin=dict(
         l=50,
         r=0,
@@ -505,7 +509,8 @@ fig_tot_rev.update_layout(
         t=0,
         pad=4
     ),
-    showlegend=False
+    showlegend=False,
+    font_color='white'
 )
     
 
