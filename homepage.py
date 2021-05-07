@@ -457,10 +457,11 @@ df = df.drop(index=[8,87,134,166,249,339,378,487,517,1238,1173,1108,1043,978,913
 # with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
 #     print(df)
 df.index = pd.to_datetime(df['year'].astype(str) + df['month'].astype(str), format='%Y%m')
+
 print(df)
 
 df = df.groupby('year')['tot_sales'].sum()
-
+df.drop(df.tail(1).index, inplace=True)
 # df = df.resample("Y").sum()
 # tot_rev = df.groupby([tot_rev['date']])
 
