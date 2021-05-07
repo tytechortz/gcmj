@@ -480,10 +480,13 @@ print(ly_tot_td)
 print(ty_tot_td)
 print(last_year_tot)
 ty_proj_tot = (ty_tot_td / ly_tot_td) * last_year_tot
-print(ty_proj_tot)
+ty_per_sec = ty_proj_tot / 31536000
+print(ty_per_sec)
 
 df = df.groupby('year')['tot_sales'].sum()
 df.drop(df.tail(1).index, inplace=True)
+tot_rev_thru_ly = df.sum()
+print(tot_rev_thru_ly)
 # df = df.resample("Y").sum()
 # tot_rev = df.groupby([tot_rev['date']])
 

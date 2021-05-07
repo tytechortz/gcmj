@@ -6,6 +6,7 @@ import os
 from dash.dependencies import Input, Output, State
 from app import app
 from data import df_revenue, sources, df_rev, df_biz, categories_table, text, df_bidness, df_pc, df_pop
+from homepage import ty_per_sec
 from dotenv import load_dotenv
 import plotly.graph_objs as go
 from apps.revenue import month_values
@@ -900,7 +901,7 @@ def hp_rev_map(data):
 def tot_rev_timer(n):
     start = datetime.datetime(2021, 1, 1)
     end = datetime.datetime.now()
-    per_sec = 79.48
+    per_sec = ty_per_sec
     previous_revenue = 9978794073
     diff = (end - start)
     seconds = int(diff.total_seconds())
