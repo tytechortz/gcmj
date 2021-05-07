@@ -451,55 +451,38 @@ fig = go.Figure(fig_dict)
 ##############################################################
 df = df_rev
 df = df.drop(index=[8,87,134,166,249,339,378,487,517,1238,1173,1108,1043,978,913,720,655,590,5076])
-# print(df)
-# tot_rev = df.groupby(["year", "month"]).agg({'tot_sales':['sum']})
-# tot_rev = tot_rev.reset_index()
-# with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-#     print(df)
+
 df.index = pd.to_datetime(df['year'].astype(str) + df['month'].astype(str), format='%Y%m')
 
-# print(df)
 df_new = df.loc['2021-01-01':]
 df_month = df.loc[:'2020-12-31']#.groupby('month')['tot_sales'].sum()
 df_month = df_month.groupby('month')['tot_sales'].sum()
 
-# print(df_month)
 current_data_month = int(df_new['month'].iloc[-1])
 df_new_rev = df_new.groupby('year')['tot_sales'].sum()
-print(df_new_rev)
-print(current_data_month)
+
 
 df_new_tot = df_new.groupby('month')['tot_sales'].sum()
-# print(df_new_tot)
+
 df_ly = df.loc['2020-01-01':'2020-12-31'].groupby('month')['tot_sales'].sum()
-# print(df_ly)
+
 last_year_tot = df_ly.sum()
 
 df_ly_td = df_ly.head(current_data_month)
-# print(df_ly_td)
+
 ly_tot_td = df_ly_td.sum()
 ty_tot_td = df_new_tot.sum()
-# print(ly_tot_td)
-# print(ty_tot_td)
-# print(last_year_tot)
+
 ty_proj_tot = (ty_tot_td / ly_tot_td) * last_year_tot
 ty_per_sec = ty_proj_tot / 31536000
 
 df_new_rev['projected'] = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
+
 df_new_rev = df_new_rev.to_frame().tail(1)
-print(df_new_rev)
 
 df = df.groupby('year')['tot_sales'].sum()
 df.drop(df.tail(1).index, inplace=True)
 tot_rev_thru_ly = df.sum()
-# print(tot_rev_thru_ly)
-# df = df.resample("Y").sum()
-# tot_rev = df.groupby([tot_rev['date']])
-
-# with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
-#     print(df)
-
-
 
 fig_tot_rev = go.Figure()
 
