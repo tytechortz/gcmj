@@ -472,8 +472,9 @@ with pd.option_context('display.max_rows', None, 'display.max_columns', None):  
 
 fig_tot_rev = go.Figure()
 
-fig_tot_rev.add_trace(go.Scatter(x=df.index, y=df,
-                    mode='lines+markers'))
+fig_tot_rev.add_trace(go.Bar(x=df.index, 
+                            y=df,
+                            )),
 fig_tot_rev.update_layout(
     height=250,
     autosize=True,
