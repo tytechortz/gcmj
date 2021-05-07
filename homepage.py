@@ -504,7 +504,8 @@ fig_tot_rev.update_layout(
         b=0,
         t=0,
         pad=4
-    )
+    ),
+    showlegend=False
 )
     
 
