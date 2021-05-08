@@ -749,8 +749,9 @@ def create_rev_scat(clickData,year,rev):
                 hovermode = 'closest',
                 title = '{} COUNTY {} REVENUE - {}'.format(county_name,rev,year),
                 height = 350,
-                font = {'size': 8},
-                paper_bgcolor='green'
+                font = {'size': 8, 'color':'white'},
+                paper_bgcolor='green',
+                
             )
         }
 
@@ -790,21 +791,25 @@ def create_month_bar(clickData, month, crat, mo_yr):
     
     if mo_yr == 'yr':
         trace1 = [
-            {'y': county_rev_month['tot_sales'], 'x': county_rev_month['month'], 'type': 'bar', 'name': 'month'}
+            {'y': county_rev_month['tot_sales'], 'x': county_rev_month['month'], 'type': 'bar', 'name': 'month', 'marker': {'color': 'black'}}
         ]
 
         return {
             'data': trace1,
             'layout': go.Layout(
                 height = 350,
-                title = 'ANNUAL {} COUNTY REVENUE'.format(clickData['points'][-1]['text']),
-                font = {'size': 8}
+                title = '{} COUNTY REVENUE MONTHLY CUMULATIVE TOTALS'.format(county_name),
+                yaxis = {'title': 'Revenue'},
+                xaxis = {'title': 'Month'},
+                font = {'size': 8, 'color': 'white'},
+                paper_bgcolor='green',
+                
             ),
         }
 
     elif mo_yr == 'mo':
         trace1 = [
-            {'y': crm['tot_sales'], 'x': crm['year'], 'type': 'bar', 'name': 'month'}
+            {'y': crm['tot_sales'], 'x': crm['year'], 'type': 'bar', 'name': 'month', 'marker': {'color': 'black'}}
         ]
     
         return {
@@ -812,7 +817,11 @@ def create_month_bar(clickData, month, crat, mo_yr):
             'layout': go.Layout(
                 height = 350,
                 title = '{} COUNTY REVENUE FOR {}'.format(county_name, month_values[month]),
-                font = {'size': 8}
+                font = {'size': 8, 'color': 'white'},
+                paper_bgcolor='green',
+                xaxis = {'title': 'Year'},
+                yaxis = {'title': 'Revenue'},
+                # marker={'color': 'black'}
             ),
         }
 
