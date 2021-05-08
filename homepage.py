@@ -557,7 +557,8 @@ def home_page_App():
                         ],
                             className='col-1'
                         ),
-                            dcc.Markdown('''This page displays general statewide cannabis data. Please use nav links to explore date further by county''')
+                            dcc.Markdown('''This page displays statewide cannabis data. Please use nav links to explore date further by county.''',
+                            style={'color': 'white'})
                         ],
                             className='row'
                         ),

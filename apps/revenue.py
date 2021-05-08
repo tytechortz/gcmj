@@ -71,8 +71,9 @@ def revenue_App():
                         className='col-8'
                     ),
                     html.Div([
-                        dcc.Markdown('''Click on counties and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
-                        Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''')    
+                        dcc.Markdown('''CLICK ON GREEN SHADED COUNTIES and use year slider to see annual county revenue data displayed in graphs.  Green counties have at least one form of legalized cannabis, green circles show relative cannabis revenue for selected year. 
+                        Select sales check boxes to display revenue graphically by type below left. Select Year or Month button below to display county revenue by month across years, or to display cumulative revenue totals for each month, respectively.''',
+                        style={'color': 'white'})    
                     ],
                         className='col-4'
                     ),
@@ -102,7 +103,7 @@ def revenue_App():
                             ],
                             labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
                             value='mo',
-                            style = {'text-align': 'center'}
+                            style = {'text-align': 'center', 'color': 'white'}
                         ),
                     ],
                         className='col-4'
@@ -121,7 +122,7 @@ def revenue_App():
                             ],
                             labelStyle={'display':'inline-block', 'margin': 0, 'padding': 1},
                             value = ['TOTAL'],
-                            style = {'text-align': 'center', }
+                            style = {'text-align': 'center', 'color': 'white' }
                             ),
                     ],
                         className='col-6'
