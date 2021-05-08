@@ -603,6 +603,23 @@ def home_page_App():
                 ),
                 get_emptyrow(),
                 html.Div([
+                    html.Div([
+                        dcc.Markdown('''Counties where cannabis sales are legal as of 2020 are shaded in green in map above.''',
+                        style={'color':'white'})
+                    ],
+                        className='col-6'
+                    ),
+                    html.Div([
+                        dcc.Markdown('''Bar chart above shows total revenue for the entire state, with the last bar showing reported revenue at the current time in black, and projected revenue for the entire year in red. Projected revenue is based on comparison of reported revenue for current year with the same period last year, and using the percentage difference to projec the remaining months.''',
+                        style={'color':'white'})
+                    ],
+                        className='col-6'
+                    ),
+                ],
+                    className='row'
+                ),
+                get_emptyrow(),
+                html.Div([
                     # html.Div([
                     # ],
                     #     className='col-2'

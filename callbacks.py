@@ -934,12 +934,12 @@ def tot_rev_timer(n):
 
     return html.Div([
         html.Div([
-            html.H6('Total Revenue Since 2014 - ', style={'text-align': 'right', 'color':'white'})
+            html.H6('Total Revenue Since 2014 - ', style={'text-align': 'left', 'color':'white'})
         ],
             className='col-5'
         ),
         html.Div([
-            html.H4('${:,d}'.format(cash), style={'text-align': 'right', 'color':'limegreen'})
+            html.H4('${:,d}'.format(cash), style={'text-align': 'center', 'color':'limegreen'})
         ],
             className='col-4'
         ),
