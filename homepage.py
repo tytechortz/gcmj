@@ -450,7 +450,7 @@ fig_dict["layout"]["sliders"] = [sliders_dict]
 fig = go.Figure(fig_dict)
 
 ##############################################################
-# ALL REVENUE SCATTER PLOT
+# ALL REVENUE BAR CHART
 ##############################################################
 df = df_rev
 df = df.drop(index=[8,87,134,166,249,339,378,487,517,1238,1173,1108,1043,978,913,720,655,590,5076])
@@ -475,14 +475,20 @@ df_ly_td = df_ly.head(current_data_month)
 
 ly_tot_td = df_ly_td.sum()
 ty_tot_td = df_new_tot.sum()
+print(ty_tot_td)
 
 ty_proj_tot = (ty_tot_td / ly_tot_td) * last_year_tot
 ty_per_sec = ty_proj_tot / 31536000
 
-df_new_rev['projected'] = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
+# df_new_rev['2021'] = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
+proj_rev = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
+print(proj_rev)
+data = {'': proj_rev}
+df_ty_rev = pd.DataFrame(data, index=[2021])
+print(df_ty_rev)
 
-df_new_rev = df_new_rev.to_frame().tail(1)
-
+df_new_rev = df_new_rev.to_frame()#.tail(1)
+print(df_new_rev)
 df = df.groupby('year')['tot_sales'].sum()
 df.drop(df.tail(1).index, inplace=True)
 tot_rev_thru_ly = df.sum()
@@ -491,10 +497,17 @@ fig_tot_rev = go.Figure()
 
 fig_tot_rev.add_trace(go.Bar(x=df.index, 
                             y=df,
+                            marker={'color': 'black'}
                             )),
 
 fig_tot_rev.add_trace(go.Bar(x=df_new_rev.index,
-                            y=df_new_rev['tot_sales']
+                            y=df_new_rev['tot_sales'],
+                            marker={'color': 'black'}
+                            )),
+
+fig_tot_rev.add_trace(go.Bar(x=df_ty_rev.index,
+                            y=df_ty_rev.iloc[0],
+                            marker={'color': 'red'}
                             )),
 
 fig_tot_rev.update_layout(
@@ -510,7 +523,8 @@ fig_tot_rev.update_layout(
         pad=4
     ),
     showlegend=False,
-    font_color='white'
+    font_color='white',
+    barmode='stack'
 )
     
 

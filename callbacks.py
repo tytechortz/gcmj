@@ -705,7 +705,13 @@ def update_rev_map(selected_year):
 def create_rev_scat(clickData,year,rev):
     year_df = df_rev[df_rev['year'] == str(year)]
 
-    filtered_df = year_df[year_df['county'] == clickData['points'][-1]['text']]
+    if clickData is None:
+        filtered_df = year_df[year_df['county'] == 'DENVER']
+        county_name = 'DENVER'
+    else:
+        filtered_df = year_df[year_df['county'] == clickData['points'][-1]['text']]
+        county_name = clickData['points'][-1]['text']
+    
     
     filtered_df = filtered_df.sort_values('month')
    
@@ -741,9 +747,10 @@ def create_rev_scat(clickData,year,rev):
                 xaxis = {'title': 'Month','tickvals':tickvals,'tickmode': 'array','ticktext': labels},
                 yaxis = {'title': 'Revenue'},
                 hovermode = 'closest',
-                title = '{} COUNTY {} REVENUE - {}'.format(clickData['points'][-1]['text'],rev,year),
+                title = '{} COUNTY {} REVENUE - {}'.format(county_name,rev,year),
                 height = 350,
-                font = {'size': 8}
+                font = {'size': 8},
+                paper_bgcolor='green'
             )
         }
 
@@ -767,7 +774,13 @@ def create_month_bar(clickData, month, crat, mo_yr):
     crat = pd.read_json(crat)
     crat.reset_index(inplace=True)
     df = df_rev
-    filtered_county = clickData['points'][-1]['text']
+
+    if clickData is None:
+        filtered_county = 'DENVER'
+        county_name = 'DENVER'
+    else:
+        filtered_county = clickData['points'][-1]['text']
+        county_name = filtered_county
   
     county_rev = df[df['county'] == filtered_county]
 
@@ -798,7 +811,7 @@ def create_month_bar(clickData, month, crat, mo_yr):
             'data': trace1,
             'layout': go.Layout(
                 height = 350,
-                title = '{} COUNTY REVENUE FOR {}'.format(clickData['points'][-1]['text'], month_values[month]),
+                title = '{} COUNTY REVENUE FOR {}'.format(county_name, month_values[month]),
                 font = {'size': 8}
             ),
         }
