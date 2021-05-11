@@ -19,6 +19,9 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
+start = datetime.datetime(2021, 1, 1)
+# end = datetime.datetime.now()
+
 #########################################################
 #PL REV Callbacks
 #########################################################
@@ -921,9 +924,10 @@ def hp_rev_map(data):
     Output('tot-rev-led', 'children'),
     Input('interval-component', 'n_intervals'))
 def tot_rev_timer(n):
-    start = datetime.datetime(2021, 1, 1)
+    # start = datetime.datetime(2021, 1, 1)
     end = datetime.datetime.now()
     per_sec = ty_per_sec
+    # print(per_sec)
     previous_revenue = 9978794073
     diff = (end - start)
     seconds = int(diff.total_seconds())

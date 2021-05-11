@@ -341,10 +341,12 @@ fig_dict = {
     "frames": []
 }
 
-fig_dict["layout"]["xaxis"] = {"range": [1, 4], 'type': 'log', "title": "PerCap Rev"}
-fig_dict["layout"]["yaxis"] = {"range": [-.1, .3], "title": "Tot. Rev."}
+fig_dict["layout"]["xaxis"] = {"range": [.1, 4], 'type': 'log', "title": "PerCap Rev"}
+fig_dict["layout"]["yaxis"] = {"range": [-.1, .2], "title": "% Pop. Change"}
 fig_dict["layout"]["hovermode"] = "closest"
 fig_dict['layout']['height'] = 500
+fig_dict['layout']['margin'] = {'l': 50, 'r': 0, 'b': 0, 't': 0, 'pad': 4}
+        
 fig_dict['layout']['paper_bgcolor'] = 'green'
 # fig_dict['layout']['plot_bgcolor'] = 'lightgreen'
 fig_dict['layout']['font_color'] = 'white'
@@ -475,6 +477,7 @@ df_ly_td = df_ly.head(current_data_month)
 
 ly_tot_td = df_ly_td.sum()
 ty_tot_td = df_new_tot.sum()
+print(ly_tot_td)
 print(ty_tot_td)
 
 ty_proj_tot = (ty_tot_td / ly_tot_td) * last_year_tot
@@ -483,12 +486,14 @@ ty_per_sec = ty_proj_tot / 31536000
 # df_new_rev['2021'] = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
 proj_rev = (df_new_rev.iloc[0] / ly_tot_td) * last_year_tot
 print(proj_rev)
+
 data = {'': proj_rev}
 df_ty_rev = pd.DataFrame(data, index=[2021])
 print(df_ty_rev)
 
 df_new_rev = df_new_rev.to_frame()#.tail(1)
 print(df_new_rev)
+
 df = df.groupby('year')['tot_sales'].sum()
 df.drop(df.tail(1).index, inplace=True)
 tot_rev_thru_ly = df.sum()
@@ -630,8 +635,10 @@ def home_page_App():
                         className='col-8'
                     ),
                     html.Div([
+                        dcc.Markdown('''Graph at left shows county per capita revenue and population growth changes since 2014, with the bubble sizes showing relative total population. Large per capita revenue values suggest tourism may be an important factor in a particular county's cannabis industry. As Arizona and New Mexico legalized recrational cannabis industries ramp up, it will be interesting to see the effects on revenue of counties which border these states in the near future, as they generally have high per capita revenue. ''',
+                        style={'color': 'white'})
                     ],
-                        className='col-2'
+                        className='col-4'
                     ),
                 ],
                     className='row'
@@ -653,7 +660,7 @@ def home_page_App():
         html.Div([
             dcc.Interval(
                 id='interval-component',
-                interval=1000,
+                interval=1 * 1000,
                 n_intervals=0
             )
         ]),

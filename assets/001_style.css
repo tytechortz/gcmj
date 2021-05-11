@@ -33,3 +33,71 @@ position: relative;
 box-shadow: 3px 3px 3px rgb(255, 255, 255);
 }
 
+.pretty_container2 {
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    /* margin: 5px; */
+    /* padding: 15px; */
+    position: relative;
+    box-shadow: 3px 3px 3px rgb(255, 255, 255);
+}
+
+#categories label:nth-child(2) {
+    color: white;
+    background-color: purple
+}
+
+#categories label:nth-child(3) {
+    color: white;
+    background-color: darkblue
+}
+
+#categories label:nth-child(4) {
+    color: white;
+    background-color: dodgerblue
+}
+
+#categories label:nth-child(5) {
+    color: white;
+    background-color: darkgreen
+}
+
+#categories label:nth-child(6) {
+    color: white;
+    background-color: black
+}
+
+#categories label:nth-child(7) {
+    color: black;
+    background-color: lightgreen
+}
+
+#categories label:nth-child(8) {
+    color: black;
+    background-color: yellow
+}
+
+#categories label:nth-child(9) {
+    color: black;
+    background-color: orange
+}
+
+#categories label:nth-child(10) {
+    color: black;
+    background-color: darkorange
+}
+
+#categories label:nth-child(11) {
+    color: black;
+    background-color: red
+}
+
+#categories label:nth-child(12) {
+    color: white;
+    background-color: darkred
+}
+
+#categories label:nth-child(13) {
+    color: black;
+    background-color: violet
+}
