@@ -867,6 +867,7 @@ def create_month_bar(clickData, crat):
 #####################################################
 
 
+
 @app.callback(
      Output('hp-map', 'figure'),
      Input('pl-data', 'value'))         

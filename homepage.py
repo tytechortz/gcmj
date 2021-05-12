@@ -9,7 +9,8 @@ import dash
 from datetime import datetime as dt
 from app import app
 import dash_bootstrap_components as dbc
-from data import df_revenue, df_pc, df_rev
+from data import df_revenue, df_pc, df_rev, df_bidness
+# from callbacks import df_combo
 
 
 app = dash.Dash(__name__)
@@ -301,32 +302,19 @@ def get_emptyrow(h='15px'):
 
 df = df_pc
 
-# df = df.fillna(0)
-# df = df_pc.fillna(0)
-# df['diff'] = df.groupby('county').apply(lambda x: x['totalpopulation'].shift(1) - x['totalpopulation'])
-# df = df.groupby('county')
 df = df[df.county != 'SUM OF NR COUNTIES']
 df.drop(['color', 'COUNTY', 'CENT_LAT', 'CENT_LONG'], axis=1, inplace=True)
 df['diff'] = df['totalpopulation'] - df['totalpopulation'].shift(64)
 df = df.fillna(0)
-# print(df)
+
 df['diff'] = df['diff'].astype(int)
 
 df['cum_sum'] = df.groupby(['county'])['diff'].apply(lambda x: x.cumsum())
 df['cum_pct'] = df.apply(lambda x: (x['cum_sum'] / x['totalpopulation']), axis=1)
-# for index, row in df.iterrows():
-#     df['cum'] = df['diff'].loc[index] + df['diff'].loc[index+64]
-# df['cum'] = df.groupby('county').apply(lambda x: x['diff'] + df.loc[].reset_index(drop=True)
-# df['cum-dif'] = df.groupby('county').apply(lambda x: x['diff'] + x['diff'].shift(-1)).reset_index(drop=True)
-
-# df.reset_index(drop=True, inplace=True)
-# print(df)
 
 df = df.fillna(0)
 dataset = df
-
-# with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
-#     print(dataset)
+print(dataset)
 
 years = ["2014", "2015", "2016", "2017", "2018", "2019", "2020"]
 
@@ -341,8 +329,8 @@ fig_dict = {
     "frames": []
 }
 
-fig_dict["layout"]["xaxis"] = {"range": [.1, 4], 'type': 'log', "title": "PerCap Rev"}
-fig_dict["layout"]["yaxis"] = {"range": [-.1, .2], "title": "% Pop. Change"}
+fig_dict["layout"]["xaxis"] = {"range": [-500, 5000],"title": "Per Capita Revenue"}
+fig_dict["layout"]["yaxis"] = {"range": [5, 9.5], 'type': 'log',  "title": "Total Revenue Per Year"}
 fig_dict["layout"]["hovermode"] = "closest"
 fig_dict['layout']['height'] = 500
 fig_dict['layout']['margin'] = {'l': 50, 'r': 0, 'b': 0, 't': 0, 'pad': 4}
@@ -393,7 +381,7 @@ sliders_dict = {
     "transition": {"duration": 300, "easing": "cubic-in-out"},
     "pad": {"b": 10, "t": 50},
     "len": 0.9,
-    "x": 0.1,
+    "x": .1,
     "y": 0,
     "steps": []
 }
@@ -402,10 +390,11 @@ year = 2014
 for county in counties:
     dataset_by_year = dataset[dataset["year"] == year]
     dataset_by_year_and_county = dataset_by_year[dataset_by_year["county"] == county]
+    # print(dataset_by_year_and_county)
 
     data_dict = {
         "x": list(dataset_by_year_and_county["pc_rev"]),
-        "y": list(dataset_by_year_and_county["cum_pct"]),
+        "y": list(dataset_by_year_and_county["tot_sales"]),
         "mode": "markers",
         "text": list(dataset_by_year_and_county["county"]),
         "marker": {
@@ -425,7 +414,7 @@ for year in years:
 
         data_dict = {
             "x": list(dataset_by_year_and_county["pc_rev"]),
-            "y": list(dataset_by_year_and_county["cum_pct"]),
+            "y": list(dataset_by_year_and_county["tot_sales"]),
             "mode": "markers",
             "text": list(dataset_by_year_and_county["county"]),
             "marker": {
@@ -609,16 +598,26 @@ def home_page_App():
                 get_emptyrow(),
                 html.Div([
                     html.Div([
-                        dcc.Markdown('''Counties where cannabis sales are legal as of 2020 are shaded in green in map above.''',
-                        style={'color':'white'})
+                        html.Div([
+                            dcc.Markdown('''Counties where cannabis sales are legal as of 2020 are shaded in green.''',
+                            style={'color':'white'}),
+                        ],
+                            className='row'
+                        ),
+                        html.Div([
+                            dcc.Markdown('''Graph below shows county per capita revenue and population growth changes since 2014, with the bubble sizes showing relative total population. Large per capita revenue values suggest tourism may be an important factor in a particular county's cannabis industry.''',
+                            style={'color':'white'}),
+                        ],
+                            className='row'
+                        ),
                     ],
-                        className='col-6'
+                        className='col-7'
                     ),
                     html.Div([
                         dcc.Markdown('''Bar chart above shows total revenue for the entire state, with the last bar showing reported revenue at the current time in black, and projected revenue for the entire year in red. Projected revenue is based on comparison of reported revenue for current year with the same period last year, and using the percentage difference to projec the remaining months.''',
                         style={'color':'white'})
                     ],
-                        className='col-6'
+                        className='col-5'
                     ),
                 ],
                     className='row'
@@ -632,14 +631,14 @@ def home_page_App():
                     html.Div([
                         dcc.Graph(figure=fig)
                     ],
-                        className='col-8'
+                        className='col-12'
                     ),
-                    html.Div([
-                        dcc.Markdown('''Graph at left shows county per capita revenue and population growth changes since 2014, with the bubble sizes showing relative total population. Large per capita revenue values suggest tourism may be an important factor in a particular county's cannabis industry. As Arizona and New Mexico legalized recrational cannabis industries ramp up, it will be interesting to see the effects on revenue of counties which border these states in the near future, as they generally have high per capita revenue. ''',
-                        style={'color': 'white'})
-                    ],
-                        className='col-4'
-                    ),
+                    # html.Div([
+                    #     dcc.Markdown('''Graph at left shows county per capita revenue and population growth changes since 2014, with the bubble sizes showing relative total population. Large per capita revenue values suggest tourism may be an important factor in a particular county's cannabis industry. As Arizona and New Mexico legalized recrational cannabis industries ramp up, it will be interesting to see the effects on revenue of counties which border these states in the near future, as they generally have high per capita revenue. ''',
+                    #     style={'color': 'white'})
+                    # ],
+                    #     className='col-4'
+                    # ),
                 ],
                     className='row'
                 ),
