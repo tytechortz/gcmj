@@ -578,6 +578,12 @@ def display_per_cap_info(clickData, year):
 #########################################################
 #Business Callbacks
 #########################################################
+@app.callback(
+    Output('biz-count-bar', 'figure'),
+    Input('biz-map', 'selectedData'))
+def get_biz_count(selection):
+    return(print(selection['points']))
+
 
 @app.callback(
     Output('biz-map', 'figure'),

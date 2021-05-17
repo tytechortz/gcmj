@@ -501,7 +501,7 @@ fig_tot_rev.add_trace(go.Bar(x=df_new_rev.index,
 
 fig_tot_rev.add_trace(go.Bar(x=df_ty_rev.index,
                             y=df_ty_rev.iloc[0],
-                            marker={'color': 'red'}
+                            marker={'color': 'green'}
                             )),
 
 fig_tot_rev.update_layout(

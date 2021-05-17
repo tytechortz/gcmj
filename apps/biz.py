@@ -95,6 +95,12 @@ def biz_App():
                 ],
                     className='row'
                 ),
+                get_emptyrow(),
+                html.Div([
+                    html.Div(id='biz-count-bar')
+                ],
+                    className='row'
+                ),
             ],
                 className='col-10',
                 style = externalgraph_colstyling, # External 10-column 
